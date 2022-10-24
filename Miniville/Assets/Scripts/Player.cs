@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     public void BuyCard(Pile pile)
     {
-        SOCards card = pile.RemoveCard();
+        SOCards card = pile.PopCard();
         deck.Add(card);
         money -= card.cost;
     }

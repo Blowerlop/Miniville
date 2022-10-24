@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Pile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Stack<SOCards> _cards = new Stack<SOCards>();
+
+    public void AddCard(SOCards card)
     {
-        
+        _cards.Push(card);
     }
 
-    // Update is called once per frame
-    void Update()
+    public SOCards PopCard()
     {
-        
+        return _cards.Pop();
     }
 }
