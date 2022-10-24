@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int name;
+    public string name;
     public List<SOCard> deck;
     public int money = 3;
 
