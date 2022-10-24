@@ -6,15 +6,23 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] private SOCard _card;
-
+    [SerializeField] public SOCard card;
+    
+    private void Start()
+    {
+        var imageUI = GetComponentInChildren<Image>();
+        if (imageUI != null)
+        {
+            imageUI.sprite = card.sprite;
+        }
+    }
 
     private void OnValidate()
     {
         var imageUI = GetComponentInChildren<Image>();
-        if (imageUI != null && _card != null)
+        if (imageUI != null && card != null)
         {
-            imageUI.sprite = _card.sprite;
+            imageUI.sprite = card.sprite;
         }
     }
 }

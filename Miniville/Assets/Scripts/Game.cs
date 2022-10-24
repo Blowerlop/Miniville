@@ -1,13 +1,15 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
 
 public class Game : MonoBehaviour
 {
      [SerializeField] private List<SOCard> cardsList = new List<SOCard>();
+
+     [SerializeField] private Transform _cardsUiParent;
+     [SerializeField] private Card _cardPrefab;
 
 
 
@@ -20,7 +22,24 @@ public class Game : MonoBehaviour
         }
         
         GenerateCards();
-        InitilizePiles();
+        InitializePiles();
+        
+        Game1();
+    }
+
+    private void Game1()
+    {
+        Debug.Log("Game is on !");
+
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
+            {
+                Card card = Instantiate(_cardPrefab, new Vector2(i + 2, 10), quaternion.identity, _cardsUiParent);
+                card.card = GameManager.instance.players[i].deck[j];
+            }
+            
+        }
     }
 
     private void GenerateCards()
@@ -40,9 +59,11 @@ public class Game : MonoBehaviour
         Random random = new Random();
         List<SOCard> temp = cardsList.OrderBy(x => random.Next()).ToList();
         cardsList = temp;
+        
+        Debug.Log("Generating cards");
     }
     
-    private void InitilizePiles()
+    private void InitializePiles()
     {
         int counter = 0;
         for (int i = 0; i < cardsList.Count; i++)
@@ -55,5 +76,7 @@ public class Game : MonoBehaviour
             GameManager.instance.piles[counter].AddCard(cardsList[i]);
             counter++;
         }
+        Debug.Log("Initializing piles");
+
     }
 }
