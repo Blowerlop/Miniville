@@ -9,6 +9,7 @@ public class SOCards : ScriptableObject
     public EColor color;
     public int cost;
     public int activation;
+    public Sprite sprite;
 }
 
 public enum EName
