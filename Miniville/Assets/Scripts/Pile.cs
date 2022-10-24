@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Pile : MonoBehaviour
 {
-    private Stack<SOCards> _cards = new Stack<SOCards>();
+    private Stack<SOCard> _cards = new Stack<SOCard>();
 
-    public void AddCard(SOCards card)
+    public void AddCard(SOCard card)
     {
         _cards.Push(card);
     }
 
-    public SOCards PopCard()
+    public SOCard PopCard()
     {
         return _cards.Pop();
     }

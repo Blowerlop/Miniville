@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int name;
-    public List<SOCards> deck;
+    public List<SOCard> deck;
     public int money = 3;
 
     public void BuyCard(Pile pile)
     {
-        SOCards card = pile.PopCard();
+        SOCard card = pile.PopCard();
         deck.Add(card);
         money -= card.cost;
     }

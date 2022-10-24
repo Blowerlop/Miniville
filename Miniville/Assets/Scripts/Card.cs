@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] private SOCards _card;
+    [SerializeField] private SOCard _card;
 
 
     private void OnValidate()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Card/Create New Card")]
-public class SOCards : ScriptableObject
+public class SOCard : ScriptableObject
 {
     public new EName name;
     public EColor color;
