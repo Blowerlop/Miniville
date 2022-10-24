@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public Player[] players;
+    public Pile[] piles = new Pile[15];
 
     public void Awake()
     {
@@ -18,6 +20,5 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    [SerializeField] private Player[] _players;
-    [SerializeField] private Pile[] _piles = new Pile[15];
+    
 }
