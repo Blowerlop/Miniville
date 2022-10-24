@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     private void OnValidate()
     {
         var imageUI = GetComponentInChildren<Image>();
-        if (imageUI != null)
+        if (imageUI != null && _card != null)
         {
             imageUI.sprite = _card.sprite;
         }
