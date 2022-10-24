@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd0ec19c620724748831d33c7484420c, type: 3}
-  m_Name: ChampDeBle
+  m_Name: Foret
   m_EditorClassIdentifier: 
   name: 0
   color: 0
