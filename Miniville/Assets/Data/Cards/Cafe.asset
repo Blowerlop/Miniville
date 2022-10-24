@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0ec19c620724748831d33c7484420c, type: 3}
   m_Name: Cafe
   m_EditorClassIdentifier: 
-  name: 0
-  color: 0
-  cost: 0
-  activation: 0
-  sprite: {fileID: 0}
+  name: 3
+  color: 2
+  cost: 2
+  activation: 3
+  sprite: {fileID: 21300000, guid: ca94ce5506d912541ae4a57a431326f8, type: 3}

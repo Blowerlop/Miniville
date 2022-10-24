@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0ec19c620724748831d33c7484420c, type: 3}
   m_Name: Restaurant
   m_EditorClassIdentifier: 
-  name: 0
-  color: 0
-  cost: 0
-  activation: 0
-  sprite: {fileID: 0}
+  name: 6
+  color: 2
+  cost: 4
+  activation: 5
+  sprite: {fileID: 21300000, guid: ebb58a664ab2e6141ac4491e238a44b8, type: 3}
