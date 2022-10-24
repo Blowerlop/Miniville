@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int name;
+    public List<SOCards> deck;
+    public int money = 3;
 
-    // Update is called once per frame
-    void Update()
+    public void BuyCard(Pile pile)
     {
-        
+        SOCards card = pile.RemoveCard();
+        deck.Add(card);
+        money -= card.cost;
     }
 }
