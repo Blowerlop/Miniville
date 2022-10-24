@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SOCards : MonoBehaviour
+[CreateAssetMenu(menuName = "Card/Create New Card")]
+public class SOCards : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public new EName name;
+    public EColor color;
+    public int cost;
+    public int activation;
 }
+
+public enum EName
+{
+    ChampsDeBle,
+    Ferme,
+    Boulangerie,
+    Cafe,
+    Superette,
+    Foret,
+    Restaurant,
+    Stade
+}
+
+public enum EColor
+{
+    Bleu,
+    Vert,
+    Rouge
+}
+
