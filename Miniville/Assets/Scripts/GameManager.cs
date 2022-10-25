@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Player[] players;
     public Pile[] piles;
+    public int turn = 0;
+
 
     public Player currentPlayer;
 

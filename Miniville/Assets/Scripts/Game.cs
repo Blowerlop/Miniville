@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
@@ -40,30 +41,11 @@ public class Game : MonoBehaviour
 
 
 
+        //PlayerBuy();
 
+        //CheckWin();
 
-
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
-        {
-            TurnInitialization(i);
-            Die.Roll(1);
-
-            CardEffectOnOtherPlayers();
-            CardEffetOnPlayer();
-            //PlayerBuy();
-
-            //CheckWin();
-
-        }
-
-        /*
-        while (isFinish == false)
-        {
-            
-
-            //ShowPlayerResume();
-        }
-        */
+        
 
     }
 
@@ -128,7 +110,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void TurnInitialization(int i)
+    private static void TurnInitialization(int i)
     {
         // i player turn
         GameManager.instance.currentPlayer = GameManager.instance.players[i];
@@ -137,7 +119,7 @@ public class Game : MonoBehaviour
 
     }
 
-    public static void CardEffectOnOtherPlayers()
+    private static void CardEffectOnOtherPlayers()
     {
         SOCard playerCard;
         Player[] playersArray = GameManager.instance.players;
@@ -157,14 +139,17 @@ public class Game : MonoBehaviour
 
                 if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
                 {
-                    playersArray[m].money++;
+                    //playersArray[m].money += playerCard.effect;
+                    playersArray[m].money += 1;
                     Debug.Log($"{playersArray[m].name} Get coins --> Blue color");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Rouge && playerCard.activation == Die.face)
                 {
                     //currentPlayer.money -= playerCard.effect;
+                    currentPlayer.money -= 1;
                     //playersArray[m].money += playerCard.effect;
+                    playersArray[m].money += 1;
                     Debug.Log($"{playersArray[m].name} Get coins --> Red color");
                     Debug.Log($"{currentPlayer.name} Loose coins --> Red color");
                 }
@@ -172,7 +157,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    public static void CardEffetOnPlayer()
+    private static void CardEffetOnPlayer()
     {
         SOCard playerCard;
         Player[] playersArray = GameManager.instance.players;
@@ -185,14 +170,41 @@ public class Game : MonoBehaviour
             if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
             {
                 //currentPlayer.money += playerCard.effect;
+                currentPlayer.money += 1;
                 Debug.Log($"{currentPlayer.name} Get coins --> Blue color");
             }
 
             else if (playerCard.color == SOCard.EColor.Vert && playerCard.activation == Die.face)
             {
                 //currentPlayer.money += playerCard.effect;
+                currentPlayer.money += 1;
                 Debug.Log($"{currentPlayer.name} Get coins --> Green color");
             }
         }
+    }
+
+    private static void NextTurn()
+    {
+        GameManager.instance.turn++;
+
+        if (GameManager.instance.turn >= GameManager.instance.players.Length)
+        {
+            GameManager.instance.turn = 0;
+        }
+    }
+
+    public static void Play()
+    {
+        TurnInitialization(GameManager.instance.turn);
+        CardEffectOnOtherPlayers();
+        CardEffetOnPlayer();
+
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            Player player = GameManager.instance.players[i];
+            Debug.Log($"{player.name} à {player.money}");
+        }
+
+        NextTurn();
     }
 }

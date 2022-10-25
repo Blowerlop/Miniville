@@ -23,8 +23,7 @@ public abstract  class Die
         }
 
 
-        Game.CardEffectOnOtherPlayers();
-        Game.CardEffetOnPlayer();
+        Game.Play();
         //return _face;
     }
 }
