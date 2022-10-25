@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public Pile[] piles;
     public int turn = 0;
 
+    public Player localPlayer;
+
 
     public Player currentPlayer;
 

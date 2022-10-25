@@ -36,7 +36,10 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Game is on !");
 
-        DisplayCards();
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            DisplayCards(GameManager.instance.players[i]);
+        }
         DisplayPiles();
 
 
@@ -87,16 +90,23 @@ public class Game : MonoBehaviour
 
     }
 
-    private void DisplayCards()
+
+    private void DisplayCards(Player player)
     {
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        for (int j = 0; j < player.deck.Count; j++)
         {
-            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
+            Card card;
+
+            if (player == GameManager.instance.localPlayer)
             {
-                Card card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
-                card.card = GameManager.instance.players[i].deck[j];
+                card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
+            }
+            else
+            {
+                card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
             }
 
+            card.card = player.deck[j];
         }
     }
 
