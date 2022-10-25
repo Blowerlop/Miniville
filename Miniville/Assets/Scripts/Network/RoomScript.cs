@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class RoomScript : MonoBehaviour
         hash.Add("Loaded", false);
         hash.Add("Forced", false);
         hash.Add("Gold", 3);
+        hash.Add("Deck",new int[] { 0,2});
         PhotonNetwork.player.SetCustomProperties(hash);
         forceButton.SetActive(PhotonNetwork.isMasterClient);
     }

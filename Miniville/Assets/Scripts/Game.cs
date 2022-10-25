@@ -10,21 +10,33 @@ public class Game : MonoBehaviour
 {
      [SerializeField] private List<SOCard> cardsList = new List<SOCard>();
 
-     [SerializeField] private Card _cardPrefab;
-     [SerializeField] private Transform _mainPlayerCardsUiParent;
+     [SerializeField] private static Card _cardPrefab;
+     [SerializeField] private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent;
      [SerializeField] private Transform _deckCardsUiParent;
 
     private bool isFinish = false;
 
+    int playerIndex = 1;
 
+    public PhotonPlayer[] players;
+
+    PhotonView pv;
 
     private void Start()
     {
+        _mainPlayerCardsUiParent = GameObject.Find("Cards MainPlayer").transform;
+        _otherPlayerCardsUiParent = GameObject.Find("Cards OtherPlayers").transform;
+        GameObject go = (GameObject)Resources.Load("Card");
+        _cardPrefab = go.GetComponent<Card>();
+        go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+        pv = go.GetComponent<PhotonView>();
         var tempGameManagerInstance = GameManager.instance;
         for (int i = 0; i < GameManager.instance.piles.Length; i++)
         {
             GameManager.instance.piles[i] = new Pile();
         }
+
+        players = PhotonNetwork.playerList;
         
         GenerateCards();
         InitializePiles();
@@ -34,22 +46,26 @@ public class Game : MonoBehaviour
 
     private void Game1()
     {
-        Debug.Log("Game is on !");
-
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        if (PhotonNetwork.isMasterClient)
         {
-            DisplayCards(GameManager.instance.players[i]);
+            Debug.Log("Game is on !");
+
+            //for (int i = 0; i < GameManager.instance.players.Length; i++)
+            //{
+            //    DisplayCards(GameManager.instance.players[i]);
+            //}
+            //DisplayPiles();
+
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[playerIndex].CustomProperties["Deck"]);
+            DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
+
+            //PlayerBuy();
+
+            //CheckWin();
+
+            playerIndex++;
+
         }
-        DisplayPiles();
-
-
-
-        //PlayerBuy();
-
-        //CheckWin();
-
-        
-
     }
 
     private void GenerateCards()
@@ -91,22 +107,26 @@ public class Game : MonoBehaviour
     }
 
 
-    private void DisplayCards(Player player)
+    public static void DisplayCards(int[] ids)
     {
-        for (int j = 0; j < player.deck.Count; j++)
+        for (int j = 0; j < ids.Length; j++)
         {
             Card card;
+            card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent);
 
-            if (player == GameManager.instance.localPlayer)
-            {
-                card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
-            }
-            else
-            {
-                card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
-            }
+            card.card = CardManager.GetCard(ids[j]);
+            card.LoadImage();
+        }
+    }
+    public static void DisplayCardsLocal(int[] ids)
+    {
+        for (int j = 0; j < ids.Length; j++)
+        {
+            Card card;
+            card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
 
-            card.card = player.deck[j];
+            card.card = CardManager.GetCard(ids[j]);
+            card.LoadImage();
         }
     }
 

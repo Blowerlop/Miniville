@@ -44,4 +44,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - NewPlayer
+  - DisplayCards
   DisableAutoOpenWizard: 1

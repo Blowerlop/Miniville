@@ -38,4 +38,11 @@ public class PlayerNetwork : MonoBehaviour
         hash.Add("Gold", GetGold() + gold);
         PhotonNetwork.player.SetCustomProperties(hash);
     }
+
+
+    [PunRPC]
+    public void DisplayCards(int[] ids)
+    {
+        Game.DisplayCards(ids);
+    }
 }
