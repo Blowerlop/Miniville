@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
@@ -8,8 +10,11 @@ public class Game : MonoBehaviour
 {
      [SerializeField] private List<SOCard> cardsList = new List<SOCard>();
 
-     [SerializeField] private Transform _cardsUiParent;
      [SerializeField] private Card _cardPrefab;
+     [SerializeField] private Transform _mainPlayerCardsUiParent;
+     [SerializeField] private Transform _deckCardsUiParent;
+
+    private bool isFinish = false;
 
 
 
@@ -31,15 +36,17 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Game is on !");
 
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
-        {
-            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
-            {
-                Card card = Instantiate(_cardPrefab, _cardsUiParent);
-                card.card = GameManager.instance.players[i].deck[j];
-            }
-            
-        }
+        DisplayCards();
+        DisplayPiles();
+
+
+
+        //PlayerBuy();
+
+        //CheckWin();
+
+        
+
     }
 
     private void GenerateCards()
@@ -78,5 +85,126 @@ public class Game : MonoBehaviour
         }
         Debug.Log("Initializing piles");
 
+    }
+
+    private void DisplayCards()
+    {
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
+            {
+                Card card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
+                card.card = GameManager.instance.players[i].deck[j];
+            }
+
+        }
+    }
+
+    public void DisplayPiles()
+    {
+        for (int i = 0; i < GameManager.instance.piles.Length; i++)
+        {
+            SOCard cardData = GameManager.instance.piles[i].ShowCard();
+            Card card = Instantiate(_cardPrefab, _deckCardsUiParent);
+            card.card = cardData;
+        }
+    }
+
+    private static void TurnInitialization(int i)
+    {
+        // i player turn
+        GameManager.instance.currentPlayer = GameManager.instance.players[i];
+        Debug.Log($"{GameManager.instance.currentPlayer.name} turn");
+
+
+    }
+
+    private static void CardEffectOnOtherPlayers()
+    {
+        SOCard playerCard;
+        Player[] playersArray = GameManager.instance.players;
+        Player currentPlayer = GameManager.instance.currentPlayer;
+
+        for (int m = 0; m < playersArray.Length; m++)
+        {
+            if (GameManager.instance.currentPlayer.Equals(playersArray[m]))
+            {
+                Debug.Log("Si écrit c'est bon");
+                continue;
+            }
+
+            for (int j = 0; j < playersArray[m].deck.Count; j++)
+            {
+                playerCard = playersArray[m].deck[j];
+
+                if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
+                {
+                    //playersArray[m].money += playerCard.effect;
+                    playersArray[m].money += 1;
+                    Debug.Log($"{playersArray[m].name} Get coins --> Blue color");
+                }
+
+                else if (playerCard.color == SOCard.EColor.Rouge && playerCard.activation == Die.face)
+                {
+                    //currentPlayer.money -= playerCard.effect;
+                    currentPlayer.money -= 1;
+                    //playersArray[m].money += playerCard.effect;
+                    playersArray[m].money += 1;
+                    Debug.Log($"{playersArray[m].name} Get coins --> Red color");
+                    Debug.Log($"{currentPlayer.name} Loose coins --> Red color");
+                }
+            }
+        }
+    }
+
+    private static void CardEffetOnPlayer()
+    {
+        SOCard playerCard;
+        Player[] playersArray = GameManager.instance.players;
+        Player currentPlayer = GameManager.instance.currentPlayer;
+
+        for (int k = 0; k < currentPlayer.deck.Count; k++)
+        {
+            playerCard = currentPlayer.deck[k];
+
+            if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
+            {
+                //currentPlayer.money += playerCard.effect;
+                currentPlayer.money += 1;
+                Debug.Log($"{currentPlayer.name} Get coins --> Blue color");
+            }
+
+            else if (playerCard.color == SOCard.EColor.Vert && playerCard.activation == Die.face)
+            {
+                //currentPlayer.money += playerCard.effect;
+                currentPlayer.money += 1;
+                Debug.Log($"{currentPlayer.name} Get coins --> Green color");
+            }
+        }
+    }
+
+    private static void NextTurn()
+    {
+        GameManager.instance.turn++;
+
+        if (GameManager.instance.turn >= GameManager.instance.players.Length)
+        {
+            GameManager.instance.turn = 0;
+        }
+    }
+
+    public static void Play()
+    {
+        TurnInitialization(GameManager.instance.turn);
+        CardEffectOnOtherPlayers();
+        CardEffetOnPlayer();
+
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            Player player = GameManager.instance.players[i];
+            Debug.Log($"{player.name} à {player.money}");
+        }
+
+        NextTurn();
     }
 }

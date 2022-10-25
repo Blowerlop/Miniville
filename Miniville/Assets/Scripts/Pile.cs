@@ -16,4 +16,9 @@ public class Pile
     {
         return _cards.Pop();
     }
+
+    public SOCard ShowCard()
+    {
+        return _cards.Peek();
+    }
 }
