@@ -19,7 +19,6 @@ public class RoomScript : MonoBehaviour
         hash.Add("Loaded", false);
         hash.Add("Forced", false);
         hash.Add("Gold", 3);
-        hash.Add("Score", 3);
         PhotonNetwork.player.SetCustomProperties(hash);
         forceButton.SetActive(PhotonNetwork.isMasterClient);
     }
