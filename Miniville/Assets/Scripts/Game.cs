@@ -16,11 +16,9 @@ public class Game : MonoBehaviour
 
     private bool isFinish = false;
 
-    int playerIndex = 1;
+    public static PhotonPlayer[] players;
 
-    public PhotonPlayer[] players;
-
-    PhotonView pv;
+    static PhotonView pv;
 
     private void Start()
     {
@@ -46,25 +44,12 @@ public class Game : MonoBehaviour
 
     private void Game1()
     {
+        DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
         if (PhotonNetwork.isMasterClient)
         {
             Debug.Log("Game is on !");
 
-            //for (int i = 0; i < GameManager.instance.players.Length; i++)
-            //{
-            //    DisplayCards(GameManager.instance.players[i]);
-            //}
-            //DisplayPiles();
-
-            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[playerIndex].CustomProperties["Deck"]);
-            DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
-
-            //PlayerBuy();
-
-            //CheckWin();
-
-            playerIndex++;
-
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[0].CustomProperties["Deck"]);
         }
     }
 
@@ -145,8 +130,7 @@ public class Game : MonoBehaviour
         // i player turn
         GameManager.instance.currentPlayer = GameManager.instance.players[i];
         Debug.Log($"{GameManager.instance.currentPlayer.name} turn");
-
-
+        PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[i].CustomProperties["Deck"]);
     }
 
     private static void CardEffectOnOtherPlayers()
@@ -225,16 +209,19 @@ public class Game : MonoBehaviour
 
     public static void Play()
     {
-        TurnInitialization(GameManager.instance.turn);
-        CardEffectOnOtherPlayers();
-        CardEffetOnPlayer();
-
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        if (PhotonNetwork.player.IsMasterClient)
         {
-            Player player = GameManager.instance.players[i];
-            Debug.Log($"{player.name} à {player.money}");
-        }
+            TurnInitialization(GameManager.instance.turn);
+            CardEffectOnOtherPlayers();
+            CardEffetOnPlayer();
 
-        NextTurn();
+            for (int i = 0; i < GameManager.instance.players.Length; i++)
+            {
+                Player player = GameManager.instance.players[i];
+                Debug.Log($"{player.name} à {player.money}");
+            }
+
+            NextTurn();
+        }
     }
 }
