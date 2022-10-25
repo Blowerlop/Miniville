@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
         {
             for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
             {
-                Card card = Instantiate(_cardPrefab, new Vector2(i + 2, 10), quaternion.identity, _cardsUiParent);
+                Card card = Instantiate(_cardPrefab, _cardsUiParent);
                 card.card = GameManager.instance.players[i].deck[j];
             }
             
