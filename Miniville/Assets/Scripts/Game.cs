@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
@@ -8,8 +9,11 @@ public class Game : MonoBehaviour
 {
      [SerializeField] private List<SOCard> cardsList = new List<SOCard>();
 
-     [SerializeField] private Transform _cardsUiParent;
      [SerializeField] private Card _cardPrefab;
+     [SerializeField] private Transform _mainPlayerCardsUiParent;
+     [SerializeField] private Transform _deckCardsUiParent;
+
+    private bool isFinish = false;
 
 
 
@@ -31,15 +35,34 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Game is on !");
 
-        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        DisplayCards();
+        DisplayPiles();
+
+
+
+
+        // Turn
+        int dieFace = 0;
+
+        while (isFinish == false)
         {
-            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
+            for (int i = 0; i < GameManager.instance.players.Length; i++)
             {
-                Card card = Instantiate(_cardPrefab, _cardsUiParent);
-                card.card = GameManager.instance.players[i].deck[j];
+                TurnInitialization(i);
+                break;
+
+                //CardEffectOnOtherPlayers(dieFace);
+                //CardEffetOnPlayer(dieFace);
+                //PlayerBuy();
+
+                //CheckWin();
+
             }
-            
+
+            //ShowPlayerResume();
         }
+        
+
     }
 
     private void GenerateCards()
@@ -77,6 +100,38 @@ public class Game : MonoBehaviour
             counter++;
         }
         Debug.Log("Initializing piles");
+
+    }
+
+    private void DisplayCards()
+    {
+        for (int i = 0; i < GameManager.instance.players.Length; i++)
+        {
+            for (int j = 0; j < GameManager.instance.players[0].deck.Count; j++)
+            {
+                Card card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
+                card.card = GameManager.instance.players[i].deck[j];
+            }
+
+        }
+    }
+
+    public void DisplayPiles()
+    {
+        for (int i = 0; i < GameManager.instance.piles.Length; i++)
+        {
+            SOCard cardData = GameManager.instance.piles[i].ShowCard();
+            Card card = Instantiate(_cardPrefab, _deckCardsUiParent);
+            card.card = cardData;
+        }
+    }
+
+    private void TurnInitialization(int i)
+    {
+        // i player turn
+        GameManager.instance.currentPlayer = GameManager.instance.players[i];
+        Debug.Log($"{GameManager.instance.currentPlayer.name} turn");
+
 
     }
 }

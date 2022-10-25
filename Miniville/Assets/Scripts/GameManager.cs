@@ -4,7 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Player[] players;
-    public Pile[] piles = new Pile[15];
+    public Pile[] piles;
+
+    public Player currentPlayer;
 
     public void Awake()
     {
@@ -17,5 +19,9 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    
+    public void Start()
+    {
+        piles = new Pile[15];
+    }
+
 }
