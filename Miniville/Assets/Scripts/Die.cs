@@ -22,8 +22,9 @@ public abstract  class Die
             face += rollResult;
         }
 
-       
 
+        Game.CardEffectOnOtherPlayers();
+        Game.CardEffetOnPlayer();
         //return _face;
     }
 }

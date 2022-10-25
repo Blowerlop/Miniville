@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
             Die.Roll(1);
 
             CardEffectOnOtherPlayers();
-            //CardEffetOnPlayer(dieFace);
+            CardEffetOnPlayer();
             //PlayerBuy();
 
             //CheckWin();
@@ -137,7 +137,7 @@ public class Game : MonoBehaviour
 
     }
 
-    private static void CardEffectOnOtherPlayers()
+    public static void CardEffectOnOtherPlayers()
     {
         SOCard playerCard;
         Player[] playersArray = GameManager.instance.players;
@@ -158,7 +158,7 @@ public class Game : MonoBehaviour
                 if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
                 {
                     playersArray[m].money++;
-                    Console.WriteLine($"{playersArray[m].name} Get coins --> Blue color");
+                    Debug.Log($"{playersArray[m].name} Get coins --> Blue color");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Rouge && playerCard.activation == Die.face)
@@ -166,13 +166,13 @@ public class Game : MonoBehaviour
                     //currentPlayer.money -= playerCard.effect;
                     //playersArray[m].money += playerCard.effect;
                     Debug.Log($"{playersArray[m].name} Get coins --> Red color");
-                    Console.WriteLine($"{currentPlayer.name} Loose coins --> Red color");
+                    Debug.Log($"{currentPlayer.name} Loose coins --> Red color");
                 }
             }
         }
     }
 
-    private void CardEffetOnPlayer()
+    public static void CardEffetOnPlayer()
     {
         SOCard playerCard;
         Player[] playersArray = GameManager.instance.players;
@@ -185,13 +185,13 @@ public class Game : MonoBehaviour
             if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
             {
                 //currentPlayer.money += playerCard.effect;
-                Console.WriteLine($"{currentPlayer.name} Get coins --> Blue color");
+                Debug.Log($"{currentPlayer.name} Get coins --> Blue color");
             }
 
             else if (playerCard.color == SOCard.EColor.Vert && playerCard.activation == Die.face)
             {
                 //currentPlayer.money += playerCard.effect;
-                Console.WriteLine($"{currentPlayer.name} Get coins --> Green color");
+                Debug.Log($"{currentPlayer.name} Get coins --> Green color");
             }
         }
     }
