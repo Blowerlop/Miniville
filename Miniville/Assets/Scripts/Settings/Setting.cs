@@ -87,7 +87,7 @@ namespace KILLER
             mySensEvent.Invoke();
             DissUI(0);
             myCloseEvent.AddListener(delegate { gameObject.SetActive(false); });
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
         public void SetResolution(int resolutionIndex)
         {

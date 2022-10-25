@@ -35,13 +35,14 @@ public class Lobby : MonoBehaviour
     public void JoinOrCreateRoom()
     {
         RoomOptions MyRoomOption = new RoomOptions();
-        MyRoomOption.MaxPlayers = 20;
+        MyRoomOption.MaxPlayers = 3;
         MyRoomOption.IsVisible = true;
         PhotonNetwork.JoinOrCreateRoom("Main", MyRoomOption, TypedLobby.Default);
     }
     void OnJoinedRoom()
     {
         Debug.Log("Connected");
+        PhotonNetwork.player.NickName = GameObject.Find("NameIF").GetComponent<TMPro.TMP_InputField>().text;
         PhotonNetwork.isMessageQueueRunning = false;
         PhotonNetwork.LoadLevelAsync(mapName);
     }
