@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("You don't have enough money !");
         }
+        else if (Game.GetCardNumberOfType(card.name.ToString()) < 1)
+        {
+            Debug.Log("NoMoreCard");
+        }
         else
         {
             BuyCard(card);
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
         //SOCard card = pile.PopCard();
         PlayerNetwork.AddCard((int)card.name);
         PlayerNetwork.AddGold(-card.cost);
+        Game.TakeCard(card.name.ToString());
         Game.DisplayCards();
     }
 }

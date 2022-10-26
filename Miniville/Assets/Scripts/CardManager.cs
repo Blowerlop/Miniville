@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
+    CardManager instance;
     public static List<SOCard> _cards;
     public List<SOCard> cards;
 
     public void Awake()
     {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
         _cards = cards;
     }
 

@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
 
     public static PhotonPlayer[] players;
 
-    PhotonPlayer master;
+    static PhotonPlayer master;
 
     static PhotonView pv;
 
@@ -226,11 +226,11 @@ public class Game : MonoBehaviour
         master = newMasterClient;
     }
 
-    public int GetCardNumberOfType(string cardName)
+    public static int GetCardNumberOfType(string cardName)
     {
         return (int)master.CustomProperties[cardName];
     }
-    public void TakeCard(string cardName)
+    public static void TakeCard(string cardName)
     {
         Hashtable hash = new Hashtable();
         hash.Add(cardName, GetCardNumberOfType(cardName)-1);
