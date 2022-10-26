@@ -155,19 +155,13 @@ public class Game : MonoBehaviour
 
                 foreach (int act in playerCard.activation)
                 {
-                    if (playerCard.color == SOCard.EColor.Bleu && act == Die.face)
-                    {
-                        //playersArray[m].money += playerCard.effect;
-                        PlayerNetwork.AddGold(1);
-                        Debug.Log($"{players[m].NickName} Get coins --> Blue color now {PlayerNetwork.GetGold()} gold");
-                    }
 
-                    else if (playerCard.color == SOCard.EColor.Rouge && act == Die.face)
+                    if (playerCard.color == SOCard.EColor.Rouge && act == Die.face)
                     {
                         //currentPlayer.money -= playerCard.effect;
                         PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -1);
                         //playersArray[m].money += playerCard.effect;
-                        PlayerNetwork.AddGold(1);
+                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[m], true, 1);
                         Debug.Log($"{players[m].NickName} Get coins --> Red color now {PlayerNetwork.GetGold()} gold");
                         Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coins --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
                     }
@@ -193,7 +187,7 @@ public class Game : MonoBehaviour
         {
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
-            PhotonNetwork.RPC(pv, "CardEffetOnPlayer", players[GameManager.instance.turn], true, players[GameManager.instance.turn].NickName);
+            PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
             //CardEffetOnPlayer(players[GameManager.instance.turn].NickName);
 
             //for (int i = 0; i < GameManager.instance.players.Length; i++)
@@ -201,6 +195,7 @@ public class Game : MonoBehaviour
             //    Player player = GameManager.instance.players[i];
             //    Debug.Log($"{player.name} à {player.money}");
             //}
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[0].CustomProperties["Deck"]);
 
             NextTurn();
         }

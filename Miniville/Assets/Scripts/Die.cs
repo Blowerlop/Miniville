@@ -17,7 +17,7 @@ public abstract  class Die
 
         for (int i = 0; i < nbrDeDes; i++)
         {
-            rollResult = _random.Next(1, 7);
+            rollResult = _random.Next(9, 10);
             Debug.Log($"Roll result : {rollResult}");
             face += rollResult;
         }

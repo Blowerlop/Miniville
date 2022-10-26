@@ -32,7 +32,7 @@ public class RoomScript : MonoBehaviour
             bool test = false;
             foreach (PhotonPlayer pla in PhotonNetwork.playerList)
             {
-                if ((bool)pla.CustomProperties["Forced"] == true && pla.IsMasterClient)
+                if ((bool)pla.CustomProperties["Forced"] == true)
                 {
                     PhotonNetwork.isMessageQueueRunning = false;
                     if (!load)
@@ -83,7 +83,6 @@ public class RoomScript : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("Forced", true);
         PhotonNetwork.player.SetCustomProperties(hash);
-        forceStart = true;
     }
 
     public IEnumerator LoadScenneWithDelay(int delay, string scenne)
@@ -92,7 +91,7 @@ public class RoomScript : MonoBehaviour
         PhotonNetwork.LoadLevelAsync(scenne);
     }
 
-    [PunRPC]
+
     void NewPlayer()
     {
         playersNames.text = "";

@@ -56,7 +56,7 @@ public class PlayerNetwork : MonoBehaviour
     }
 
     [PunRPC]
-    public void CardEffetOnPlayer(string playerName)
+    public void CardEffetOnPlayer(string playerName, int face)
     {
         SOCard playerCard;
         //Player[] playersArray = GameManager.instance.players;
@@ -68,14 +68,14 @@ public class PlayerNetwork : MonoBehaviour
 
             foreach (int act in playerCard.activation)
             {
-                if (playerCard.color == SOCard.EColor.Bleu && act == Die.face)
+                if (playerCard.color == SOCard.EColor.Bleu && act == face)
                 {
                     //currentPlayer.money += playerCard.effect;
                     PlayerNetwork.AddGold(1);
                     Debug.Log($"{currentPlayer.NickName} Get coins --> Blue color now {PlayerNetwork.GetGold()} gold");
                 }
 
-                else if (playerCard.color == SOCard.EColor.Vert && act == Die.face)
+                else if (playerCard.color == SOCard.EColor.Vert && act == face && playerName == PhotonNetwork.player.NickName)
                 {
                     //currentPlayer.money += playerCard.effect;
                     PlayerNetwork.AddGold(1);
