@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] public SOCard card;
     
@@ -28,5 +29,11 @@ public class Card : MonoBehaviour
         {
             imageUI.sprite = card.sprite;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameManager.instance.clickedCard = eventData.pointerClick.GetComponent<Card>().card;
+        Debug.Log(GameManager.instance.clickedCard.name);
     }
 }

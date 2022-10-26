@@ -8,9 +8,27 @@ public class Player : MonoBehaviour
     public List<SOCard> deck;
     public int money = 3;
 
-    public void BuyCard(Pile pile)
+
+    public bool TryBuyCard()
     {
-        SOCard card = pile.PopCard();
+        SOCard card = GameManager.instance.clickedCard;
+        bool canBuy = card.cost > money;
+
+        if (canBuy == false)
+        {
+            Debug.Log("You don't have enough money !");
+        }
+        else
+        {
+            BuyCard(card);
+        }
+
+        return canBuy;
+    }
+
+    private void BuyCard(SOCard card)
+    {
+        //SOCard card = pile.PopCard();
         deck.Add(card);
         money -= card.cost;
     }
