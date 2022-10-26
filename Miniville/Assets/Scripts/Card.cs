@@ -33,7 +33,12 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.instance.clickedCard = eventData.pointerClick.GetComponent<Card>().card;
+        GameManager.instance.clickedCard = eventData.pointerClick.GetComponent<Card>();
         Player.TryBuyCard();
+    }
+
+    public GameObject GetGameObject(Card card)
+    {
+        return gameObject;
     }
 }

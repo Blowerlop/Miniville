@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
      private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent, _deckCardsUiParent;
 
     static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
+    static List<GameObject> DeckCards = new();
 
     public TMPro.TMP_Text debug;
 
@@ -134,27 +135,20 @@ public class Game : MonoBehaviour
         }
     }
 
-    public static void DisplayPiles(int[] ids)
+    public static void DisplayPiles()
     {
-        for (int j = 0; j < ids.Length; j++)
+        foreach (GameObject go in DeckCards) { Destroy(go); }
+        DeckCards.Clear();
+        for (int j = 0; j < CardManager._cards.Count; j++)
         {
             Card card;
             card = Instantiate(_cardPrefab, _deckCardsUiParent);
-
-            card.card = CardManager.GetCard(ids[j]);
+            DeckCards.Add(card.gameObject);
+            card.card = CardManager._cards[j];
             card.LoadImage();
         }
     }
 
-    public void DisplayPiles()
-    {
-        for (int i = 0; i < GameManager.instance.piles.Length; i++)
-        {
-            SOCard cardData = GameManager.instance.piles[i].ShowCard();
-            Card card = Instantiate(_cardPrefab, _deckCardsUiParent);
-            card.card = cardData;
-        }
-    }
 
     private static void TurnInitialization(int i)
     {

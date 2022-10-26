@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
 
     public static bool TryBuyCard()
     {
-        SOCard card = GameManager.instance.clickedCard;
+        SOCard card = GameManager.instance.clickedCard.card;
         bool canBuy = PlayerNetwork.GetGold() >= card.cost;
 
         if (canBuy == false)
@@ -36,5 +37,10 @@ public class Player : MonoBehaviour
         PlayerNetwork.AddGold(-card.cost);
         Game.TakeCard(card.name.ToString());
         Game.DisplayCards();
+
+        if (Game.GetCardNumberOfType(card.name.ToString()) == 0)
+        {
+            Destroy(GameManager.instance.clickedCard.gameObject);
+        }
     }
 }
