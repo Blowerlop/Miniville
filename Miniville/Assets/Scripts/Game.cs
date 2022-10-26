@@ -12,8 +12,7 @@ public class Game : MonoBehaviour
      [SerializeField] private List<SOCard> cardsList = new List<SOCard>();
 
      [SerializeField] private static Card _cardPrefab;
-     [SerializeField] private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent;
-     [SerializeField] private Transform _deckCardsUiParent;
+     private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent, _deckCardsUiParent;
 
     static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
 
@@ -31,6 +30,7 @@ public class Game : MonoBehaviour
     {
         _mainPlayerCardsUiParent = GameObject.Find("Cards MainPlayer").transform;
         _otherPlayerCardsUiParent = GameObject.Find("Cards OtherPlayers").transform;
+        _deckCardsUiParent = GameObject.Find("Cards Deck").transform;
         GameObject go = (GameObject)Resources.Load("Card");
         _cardPrefab = go.GetComponent<Card>();
         go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
@@ -129,6 +129,18 @@ public class Game : MonoBehaviour
             Card card;
             card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
             PlayerCards.Add(card.gameObject);
+            card.card = CardManager.GetCard(ids[j]);
+            card.LoadImage();
+        }
+    }
+
+    public static void DisplayPiles(int[] ids)
+    {
+        for (int j = 0; j < ids.Length; j++)
+        {
+            Card card;
+            card = Instantiate(_cardPrefab, _deckCardsUiParent);
+
             card.card = CardManager.GetCard(ids[j]);
             card.LoadImage();
         }
