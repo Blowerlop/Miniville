@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ public class Game : MonoBehaviour
 
     public static PhotonPlayer[] players;
 
+    PhotonPlayer master;
+
     static PhotonView pv;
 
     private void Start()
@@ -37,6 +40,14 @@ public class Game : MonoBehaviour
         }
 
         players = PhotonNetwork.playerList;
+
+        foreach(PhotonPlayer pla in players)
+        {
+            if (pla.IsMasterClient)
+            {
+                master = pla;
+            }
+        }
         
         GenerateCards();
         InitializePiles();
@@ -188,13 +199,6 @@ public class Game : MonoBehaviour
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
-            //CardEffetOnPlayer(players[GameManager.instance.turn].NickName);
-
-            //for (int i = 0; i < GameManager.instance.players.Length; i++)
-            //{
-            //    Player player = GameManager.instance.players[i];
-            //    Debug.Log($"{player.name} à {player.money}");
-            //}
             PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[0].CustomProperties["Deck"]);
 
             NextTurn();
@@ -211,9 +215,25 @@ public class Game : MonoBehaviour
         return null;
     }
 
-    public void Update()
+    public static void DisplayCards()
     {
-        debug.text = players[0].CustomProperties["Gold"] + " / " + players[1].CustomProperties["Gold"];
+        PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
+        DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
+    }
 
+    public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        master = newMasterClient;
+    }
+
+    public int GetCardNumberOfType(string cardName)
+    {
+        return (int)master.CustomProperties[cardName];
+    }
+    public void TakeCard(string cardName)
+    {
+        Hashtable hash = new Hashtable();
+        hash.Add(cardName, GetCardNumberOfType(cardName)-1);
+        PhotonNetwork.player.SetCustomProperties(hash);
     }
 }

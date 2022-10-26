@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -38,6 +39,28 @@ public class PlayerNetwork : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("Gold", GetGold() + gold);
         PhotonNetwork.player.SetCustomProperties(hash);
+    }
+
+    public static void AddCard(int ID)
+    {
+        Hashtable hash = new Hashtable();
+        hash.Add("Deck", GetCards().Concat(new int[] { ID }).ToArray());
+        PhotonNetwork.player.SetCustomProperties(hash);
+
+    }
+
+    public void RemoveCard(int ID)
+    {
+        int[] myArray = GetCards();
+        myArray = myArray.Where((source, index) => index != ID).ToArray();
+        Hashtable hash = new Hashtable();
+        hash.Add("Deck", myArray);
+        PhotonNetwork.player.SetCustomProperties(hash);
+    }
+
+    public static int[] GetCards()
+    {
+        return (int[])PhotonNetwork.player.CustomProperties["Deck"];
     }
 
     [PunRPC]

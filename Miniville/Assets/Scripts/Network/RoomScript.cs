@@ -21,6 +21,13 @@ public class RoomScript : MonoBehaviour
         hash.Add("Forced", false);
         hash.Add("Gold", 3);
         hash.Add("Deck",new int[] { 0,1,2,3,4,6});
+        if (PhotonNetwork.player.IsMasterClient)
+        {
+            foreach(SOCard card in CardManager._cards)
+            {
+                hash.Add(card.name, 6);
+            }
+        }
         PhotonNetwork.player.SetCustomProperties(hash);
         forceButton.SetActive(PhotonNetwork.isMasterClient);
     }

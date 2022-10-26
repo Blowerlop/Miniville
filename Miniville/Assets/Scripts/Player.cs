@@ -6,13 +6,12 @@ public class Player : MonoBehaviour
 {
     public string name;
     public List<SOCard> deck;
-    public int money = 3;
 
 
-    public bool TryBuyCard()
+    public static bool TryBuyCard()
     {
         SOCard card = GameManager.instance.clickedCard;
-        bool canBuy = card.cost > money;
+        bool canBuy = PlayerNetwork.GetGold() >= card.cost;
 
         if (canBuy == false)
         {
@@ -26,10 +25,11 @@ public class Player : MonoBehaviour
         return canBuy;
     }
 
-    private void BuyCard(SOCard card)
+    private static void BuyCard(SOCard card)
     {
         //SOCard card = pile.PopCard();
-        deck.Add(card);
-        money -= card.cost;
+        PlayerNetwork.AddCard((int)card.name);
+        PlayerNetwork.AddGold(-card.cost);
+        Game.DisplayCards();
     }
 }
