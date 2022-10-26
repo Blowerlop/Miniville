@@ -45,4 +45,6 @@ MonoBehaviour:
   - TaggedPlayer
   - NewPlayer
   - DisplayCards
+  - AddGoldRPC
+  - CardEffetOnPlayer
   DisableAutoOpenWizard: 1

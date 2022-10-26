@@ -15,5 +15,5 @@ MonoBehaviour:
   name: 0
   color: 0
   cost: 2
-  activation: 5
+  activation: 05000000
   sprite: {fileID: 21300000, guid: 47968f9f2bcfacd47bfcd90296ef2c95, type: 3}

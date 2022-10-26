@@ -27,7 +27,7 @@ public class SOCard : ScriptableObject
     public new EName name;
     public EColor color;
     public int cost;
-    public int activation;
+    public int[] activation;
     public Sprite sprite;
 }
 

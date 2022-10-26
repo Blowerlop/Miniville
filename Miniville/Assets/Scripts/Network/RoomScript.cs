@@ -20,7 +20,7 @@ public class RoomScript : MonoBehaviour
         hash.Add("Loaded", false);
         hash.Add("Forced", false);
         hash.Add("Gold", 3);
-        hash.Add("Deck",new int[] { 0,2});
+        hash.Add("Deck",new int[] { 0,1,2,3,4,6});
         PhotonNetwork.player.SetCustomProperties(hash);
         forceButton.SetActive(PhotonNetwork.isMasterClient);
     }

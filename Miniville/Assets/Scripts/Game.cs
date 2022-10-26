@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
      [SerializeField] private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent;
      [SerializeField] private Transform _deckCardsUiParent;
 
+    public TMPro.TMP_Text debug;
+
     private bool isFinish = false;
 
     public static PhotonPlayer[] players;
@@ -128,80 +130,58 @@ public class Game : MonoBehaviour
     private static void TurnInitialization(int i)
     {
         // i player turn
-        GameManager.instance.currentPlayer = GameManager.instance.players[i];
-        Debug.Log($"{GameManager.instance.currentPlayer.name} turn");
+        //GameManager.instance.currentPlayer = GameManager.instance.players[i];
         PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[i].CustomProperties["Deck"]);
     }
 
     private static void CardEffectOnOtherPlayers()
     {
         SOCard playerCard;
-        Player[] playersArray = GameManager.instance.players;
+        //Player[] playersArray = GameManager.instance.players;
+
         Player currentPlayer = GameManager.instance.currentPlayer;
 
-        for (int m = 0; m < playersArray.Length; m++)
+        for (int m = 0; m < players.Length; m++)
         {
-            if (GameManager.instance.currentPlayer.Equals(playersArray[m]))
+            if (players[m].NickName == players[GameManager.instance.turn].NickName)
             {
                 Debug.Log("Si écrit c'est bon");
                 continue;
             }
 
-            for (int j = 0; j < playersArray[m].deck.Count; j++)
+            for (int j = 0; j < ((int[])players[m].CustomProperties["Deck"]).Length; j++)
             {
-                playerCard = playersArray[m].deck[j];
+                playerCard = CardManager.GetCard(((int[])players[m].CustomProperties["Deck"])[j]);
 
-                if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
+                foreach (int act in playerCard.activation)
                 {
-                    //playersArray[m].money += playerCard.effect;
-                    playersArray[m].money += 1;
-                    Debug.Log($"{playersArray[m].name} Get coins --> Blue color");
-                }
+                    if (playerCard.color == SOCard.EColor.Bleu && act == Die.face)
+                    {
+                        //playersArray[m].money += playerCard.effect;
+                        PlayerNetwork.AddGold(1);
+                        Debug.Log($"{players[m].NickName} Get coins --> Blue color now {PlayerNetwork.GetGold()} gold");
+                    }
 
-                else if (playerCard.color == SOCard.EColor.Rouge && playerCard.activation == Die.face)
-                {
-                    //currentPlayer.money -= playerCard.effect;
-                    currentPlayer.money -= 1;
-                    //playersArray[m].money += playerCard.effect;
-                    playersArray[m].money += 1;
-                    Debug.Log($"{playersArray[m].name} Get coins --> Red color");
-                    Debug.Log($"{currentPlayer.name} Loose coins --> Red color");
+                    else if (playerCard.color == SOCard.EColor.Rouge && act == Die.face)
+                    {
+                        //currentPlayer.money -= playerCard.effect;
+                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -1);
+                        //playersArray[m].money += playerCard.effect;
+                        PlayerNetwork.AddGold(1);
+                        Debug.Log($"{players[m].NickName} Get coins --> Red color now {PlayerNetwork.GetGold()} gold");
+                        Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coins --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
+                    }
                 }
             }
         }
     }
-
-    private static void CardEffetOnPlayer()
-    {
-        SOCard playerCard;
-        Player[] playersArray = GameManager.instance.players;
-        Player currentPlayer = GameManager.instance.currentPlayer;
-
-        for (int k = 0; k < currentPlayer.deck.Count; k++)
-        {
-            playerCard = currentPlayer.deck[k];
-
-            if (playerCard.color == SOCard.EColor.Bleu && playerCard.activation == Die.face)
-            {
-                //currentPlayer.money += playerCard.effect;
-                currentPlayer.money += 1;
-                Debug.Log($"{currentPlayer.name} Get coins --> Blue color");
-            }
-
-            else if (playerCard.color == SOCard.EColor.Vert && playerCard.activation == Die.face)
-            {
-                //currentPlayer.money += playerCard.effect;
-                currentPlayer.money += 1;
-                Debug.Log($"{currentPlayer.name} Get coins --> Green color");
-            }
-        }
-    }
+    
 
     private static void NextTurn()
     {
         GameManager.instance.turn++;
 
-        if (GameManager.instance.turn >= GameManager.instance.players.Length)
+        if (GameManager.instance.turn >= players.Length)
         {
             GameManager.instance.turn = 0;
         }
@@ -213,15 +193,32 @@ public class Game : MonoBehaviour
         {
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
-            CardEffetOnPlayer();
+            PhotonNetwork.RPC(pv, "CardEffetOnPlayer", players[GameManager.instance.turn], true, players[GameManager.instance.turn].NickName);
+            //CardEffetOnPlayer(players[GameManager.instance.turn].NickName);
 
-            for (int i = 0; i < GameManager.instance.players.Length; i++)
-            {
-                Player player = GameManager.instance.players[i];
-                Debug.Log($"{player.name} à {player.money}");
-            }
+            //for (int i = 0; i < GameManager.instance.players.Length; i++)
+            //{
+            //    Player player = GameManager.instance.players[i];
+            //    Debug.Log($"{player.name} à {player.money}");
+            //}
 
             NextTurn();
         }
+    }
+
+    public static PhotonPlayer GetPlayerByName(string name)
+    {
+        foreach(PhotonPlayer player in players)
+        {
+            if (player.NickName == name)
+                return player;
+        }
+        return null;
+    }
+
+    public void Update()
+    {
+        debug.text = players[0].CustomProperties["Gold"] + " / " + players[1].CustomProperties["Gold"];
+
     }
 }
