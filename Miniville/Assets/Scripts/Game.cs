@@ -15,6 +15,8 @@ public class Game : MonoBehaviour
      [SerializeField] private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent;
      [SerializeField] private Transform _deckCardsUiParent;
 
+    static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
+
     public TMPro.TMP_Text debug;
 
     private bool isFinish = false;
@@ -107,22 +109,26 @@ public class Game : MonoBehaviour
 
     public static void DisplayCards(int[] ids)
     {
+        foreach (GameObject go in ActualPlayerCards) { Destroy(go); }
+        ActualPlayerCards.Clear();
         for (int j = 0; j < ids.Length; j++)
         {
             Card card;
             card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent);
-
+            ActualPlayerCards.Add(card.gameObject);            
             card.card = CardManager.GetCard(ids[j]);
             card.LoadImage();
         }
     }
     public static void DisplayCardsLocal(int[] ids)
     {
+        foreach (GameObject go in PlayerCards) { Destroy(go); }
+        PlayerCards.Clear();
         for (int j = 0; j < ids.Length; j++)
         {
             Card card;
             card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
-
+            PlayerCards.Add(card.gameObject);
             card.card = CardManager.GetCard(ids[j]);
             card.LoadImage();
         }
@@ -199,7 +205,7 @@ public class Game : MonoBehaviour
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
-            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[0].CustomProperties["Deck"]);
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
 
             NextTurn();
         }
