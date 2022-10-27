@@ -56,14 +56,7 @@ public class Lobby : MonoBehaviour
     }
     public void SettingsTab()
     {
-        if (settingsTab.active == true)
-        {
-            settingsTab.SetActive(false);
-        }
-        else
-        {
-            settingsTab.SetActive(true);
-        }
+        settingsTab.SetActive(!settingsTab.activeSelf);
     }
     public void JoinMain()
     {
