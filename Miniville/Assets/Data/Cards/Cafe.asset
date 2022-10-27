@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Cafe
   m_EditorClassIdentifier: 
   name: 3
+  type: 3
   color: 2
   cost: 2
   activation: 03000000
   sprite: {fileID: 21300000, guid: ca94ce5506d912541ae4a57a431326f8, type: 3}
+  coinEffect: 1
+  typeEffect: 0
