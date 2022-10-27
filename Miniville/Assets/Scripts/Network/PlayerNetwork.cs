@@ -102,14 +102,14 @@ public class PlayerNetwork : MonoBehaviour
                 {
                     //currentPlayer.money += playerCard.effect;
                     PlayerNetwork.AddGold(1);
-                    Debug.Log($"{currentPlayer.NickName} Get coins --> Blue color now {PlayerNetwork.GetGold()} gold");
+                    Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Blue color now {PlayerNetwork.GetGold()} gold");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Vert && act == face && playerName == PhotonNetwork.player.NickName)
                 {
                     //currentPlayer.money += playerCard.effect;
                     PlayerNetwork.AddGold(1);
-                    Debug.Log($"{currentPlayer.NickName} Get coins --> Green color now {PlayerNetwork.GetGold()} gold");
+                    Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
                 }
             }
         }

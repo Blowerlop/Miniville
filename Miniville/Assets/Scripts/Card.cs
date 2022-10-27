@@ -12,7 +12,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     
     private void Start()
     {
-        
+        //card._cardEffect = new GetCoinsFromOther(card.coins);
     }
 
     private void OnValidate()

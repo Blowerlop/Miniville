@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76ac5dc3be16fe946915d5b537db4f79, type: 3}
-  m_Name: New Card Type
+  m_Script: {fileID: 11500000, guid: cd0ec19c620724748831d33c7484420c, type: 3}
+  m_Name: CentreAffaire
   m_EditorClassIdentifier: 
   name: 0
+  type: 0
   color: 0
   cost: 0
+  activation: 
   sprite: {fileID: 0}
+  coinEffect: 0
+  typeEffect: 0

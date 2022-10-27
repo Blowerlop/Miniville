@@ -150,8 +150,8 @@ public class Game : MonoBehaviour
                         PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -1);
                         //playersArray[m].money += playerCard.effect;
                         PhotonNetwork.RPC(pv, "AddGoldRPC", players[m], true, 1);
-                        Debug.Log($"{players[m].NickName} Get coins --> Red color now {PlayerNetwork.GetGold()} gold");
-                        Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coins --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
+                        Debug.Log($"{players[m].NickName} Get coinEffect --> Red color now {PlayerNetwork.GetGold()} gold");
+                        Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coinEffect --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
                     }
                 }
             }
