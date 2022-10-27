@@ -210,4 +210,13 @@ public class Game : MonoBehaviour
     {
         PhotonNetwork.RPC(pv, "RemoveCentercCard", PhotonTargets.Others, true, name);
     }
+
+    public void Update()
+    {
+        debug.text = "";
+        foreach(PhotonPlayer pla in PhotonNetwork.playerList)
+        {
+            debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
+        }
+    }
 }
