@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
     {
         GameManager.instance.clickedCard = eventData.pointerClick.GetComponent<Card>();
         Player.TryBuyCard();
+
+        //Debug.Log(Game.DeckCards.IndexOf(eventData.pointerClick.GetComponent<Card>().gameObject));
     }
 
     public GameObject GetGameObject(Card card)

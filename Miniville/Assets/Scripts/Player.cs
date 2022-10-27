@@ -38,9 +38,22 @@ public class Player : MonoBehaviour
         Game.TakeCard(card.name.ToString());
         Game.DisplayCards();
 
-        if (Game.GetCardNumberOfType(card.name.ToString()) == 0)
+         // Debug.Log(  Game.DeckCards.IndexOf(GameManager.instance.clickedCard.gameObject));
+        if (Game.GetCardNumberOfType(card.name.ToString()) < 1)
         {
-            Destroy(GameManager.instance.clickedCard.gameObject);
+            
+            foreach (var go in CardManager._cards)
+            {
+
+                if (go == card)
+                {
+                    Game.cards.Remove(go);
+                    Debug.Log($"Remove {card.name}");
+
+                }
+            }
+        Game.DisplayPiles();
+
         }
     }
 }

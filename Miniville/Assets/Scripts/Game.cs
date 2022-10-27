@@ -14,8 +14,9 @@ public class Game : MonoBehaviour
      [SerializeField] private static Card _cardPrefab;
      private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent, _deckCardsUiParent;
 
-    static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
-    static List<GameObject> DeckCards = new();
+    private static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
+    public static List<GameObject> DeckCards = new();
+    public static List<SOCard> cards = new();
 
     public TMPro.TMP_Text debug;
 
@@ -26,6 +27,14 @@ public class Game : MonoBehaviour
     static PhotonPlayer master;
 
     static PhotonView pv;
+
+    private void Awake()
+    {
+        for (int i = 0; i < CardManager._cards.Count; i++)
+        {
+            cards.Add(CardManager._cards[i]);
+        }
+    }
 
     private void Start()
     {
@@ -51,6 +60,10 @@ public class Game : MonoBehaviour
                 master = pla;
             }
         }
+
+        
+        
+        
         
         GenerateCards();
         InitializePiles();
@@ -61,6 +74,8 @@ public class Game : MonoBehaviour
     private void Game1()
     {
         DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
+        DisplayPiles();
+
         if (PhotonNetwork.isMasterClient)
         {
             Debug.Log("Game is on !");
@@ -139,12 +154,12 @@ public class Game : MonoBehaviour
     {
         foreach (GameObject go in DeckCards) { Destroy(go); }
         DeckCards.Clear();
-        for (int j = 0; j < CardManager._cards.Count; j++)
+        for (int j = 0; j < cards.Count; j++)
         {
             Card card;
             card = Instantiate(_cardPrefab, _deckCardsUiParent);
             DeckCards.Add(card.gameObject);
-            card.card = CardManager._cards[j];
+            card.card = cards[j];
             card.LoadImage();
         }
     }

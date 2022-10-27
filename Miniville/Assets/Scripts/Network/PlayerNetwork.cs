@@ -76,7 +76,6 @@ public class PlayerNetwork : MonoBehaviour
     public void DisplayCards(int[] ids)
     {
         Game.DisplayCards(ids);
-        Game.DisplayPiles();
     }
 
     [PunRPC]
