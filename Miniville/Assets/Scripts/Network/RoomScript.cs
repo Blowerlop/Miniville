@@ -41,7 +41,7 @@ public class RoomScript : MonoBehaviour
             {
                 if ((bool)pla.CustomProperties["Forced"] == true)
                 {
-                    PhotonNetwork.isMessageQueueRunning = false;
+                    //PhotonNetwork.isMessageQueueRunning = false;
                     if (!load)
                     {
                         load = true;

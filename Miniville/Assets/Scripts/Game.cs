@@ -24,9 +24,9 @@ public class Game : MonoBehaviour
 
     public static PhotonPlayer[] players;
 
-    static PhotonPlayer master;
+    public static PhotonPlayer master;
 
-    static PhotonView pv;
+    public static PhotonView pv;
 
     private void Awake()
     {
@@ -43,8 +43,6 @@ public class Game : MonoBehaviour
         _deckCardsUiParent = GameObject.Find("Cards Deck").transform;
         GameObject go = (GameObject)Resources.Load("Card");
         _cardPrefab = go.GetComponent<Card>();
-        go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
-        pv = go.GetComponent<PhotonView>();
         var tempGameManagerInstance = GameManager.instance;
         for (int i = 0; i < GameManager.instance.piles.Length; i++)
         {
@@ -52,74 +50,25 @@ public class Game : MonoBehaviour
         }
 
         players = PhotonNetwork.playerList;
+    }
 
-        foreach(PhotonPlayer pla in players)
+    public static void Game1()
+    {
+        DisplayCardsLocal();
+        DisplayPiles();
+        foreach (PhotonPlayer pla in players)
         {
             if (pla.IsMasterClient)
             {
                 master = pla;
             }
         }
-
-        
-        
-        
-        
-        GenerateCards();
-        InitializePiles();
-        
-        Game1();
-    }
-
-    private void Game1()
-    {
-        DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
-        DisplayPiles();
-
         if (PhotonNetwork.isMasterClient)
         {
             Debug.Log("Game is on !");
 
             PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[0].CustomProperties["Deck"]);
         }
-    }
-
-    private void GenerateCards()
-    {
-        // Fill the initial cardsList with 6 of cards each
-        int listCount = cardsList.Count;
-        for (int i = 0; i < listCount; i++)
-        {
-            SOCard card = cardsList[i];
-            for (int j = 0; j < 5; j++)
-            {
-                cardsList.Add(card);
-            }
-        }
-
-        // Shuffle cards
-        Random random = new Random();
-        List<SOCard> temp = cardsList.OrderBy(x => random.Next()).ToList();
-        cardsList = temp;
-        
-        Debug.Log("Generating cards");
-    }
-    
-    private void InitializePiles()
-    {
-        int counter = 0;
-        for (int i = 0; i < cardsList.Count; i++)
-        {
-            if (counter > GameManager.instance.piles.Length - 1)
-            {
-                counter = 0;
-            }
-            
-            GameManager.instance.piles[counter].AddCard(cardsList[i]);
-            counter++;
-        }
-        Debug.Log("Initializing piles");
-
     }
 
 
@@ -136,8 +85,9 @@ public class Game : MonoBehaviour
             card.LoadImage();
         }
     }
-    public static void DisplayCardsLocal(int[] ids)
+    public static void DisplayCardsLocal()
     {
+        int[] ids = (int[])PhotonNetwork.player.CustomProperties["Deck"];
         foreach (GameObject go in PlayerCards) { Destroy(go); }
         PlayerCards.Clear();
         for (int j = 0; j < ids.Length; j++)
@@ -226,9 +176,8 @@ public class Game : MonoBehaviour
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
-            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
-
             NextTurn();
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
         }
     }
 
@@ -240,12 +189,6 @@ public class Game : MonoBehaviour
                 return player;
         }
         return null;
-    }
-
-    public static void DisplayCards()
-    {
-        PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
-        DisplayCardsLocal((int[])PhotonNetwork.player.CustomProperties["Deck"]);
     }
 
     public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
@@ -261,6 +204,10 @@ public class Game : MonoBehaviour
     {
         Hashtable hash = new Hashtable();
         hash.Add(cardName, GetCardNumberOfType(cardName)-1);
-        PhotonNetwork.player.SetCustomProperties(hash);
+        master.SetCustomProperties(hash);
+    }
+    public static void RemoveMiddleCard(string name)
+    {
+        PhotonNetwork.RPC(pv, "RemoveCentercCard", PhotonTargets.Others, true, name);
     }
 }

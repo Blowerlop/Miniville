@@ -79,6 +79,13 @@ public class PlayerNetwork : MonoBehaviour
     }
 
     [PunRPC]
+    public void MasterDisplay()
+    {
+        PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"]);
+        Game.DisplayCardsLocal();
+    }
+
+    [PunRPC]
     public void CardEffetOnPlayer(string playerName, int face)
     {
         SOCard playerCard;

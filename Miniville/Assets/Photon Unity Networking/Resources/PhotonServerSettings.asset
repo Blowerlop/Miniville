@@ -47,4 +47,8 @@ MonoBehaviour:
   - DisplayCards
   - AddGoldRPC
   - CardEffetOnPlayer
+  - RemoveCentercCard
+  - DisplayCardsMaster
+  - MasterDisplay
+  - instanciate
   DisableAutoOpenWizard: 1

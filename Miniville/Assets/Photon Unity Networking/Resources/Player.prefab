@@ -50,7 +50,6 @@ MonoBehaviour:
   deck:
   - {fileID: 11400000, guid: b32f5e1cc282939498b47d6b2367f21c, type: 2}
   - {fileID: 11400000, guid: bbabb84a4615fd24aae847e4bc1365af, type: 2}
-  money: 3
 --- !u!114 &5447147156191984537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +69,7 @@ MonoBehaviour:
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
+  ownershipTransfer: 1
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
