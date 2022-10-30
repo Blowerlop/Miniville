@@ -57,7 +57,7 @@ namespace KILLER
             AudioMaster.SetFloat("GameVolume", PlayerPrefs.GetInt("VolG"));
             txtG.text = PlayerPrefs.GetInt("VolG").ToString() + "%";
             QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("Quality"));
-            qualityDrop.value = QualitySettings.GetQualityLevel();
+            //qualityDrop.value = QualitySettings.GetQualityLevel();
             if(PlayerPrefs.GetInt("IsFull") == 1)
             {
                 isfull = true;
