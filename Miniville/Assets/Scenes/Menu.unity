@@ -1622,7 +1622,7 @@ PrefabInstance:
     - target: {fileID: 7829448886652462942, guid: ed251b2f23ae7384f8eb113ed8ed3019,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7829448886671373189, guid: ed251b2f23ae7384f8eb113ed8ed3019,
         type: 3}
@@ -1829,7 +1829,7 @@ GameObject:
   - component: {fileID: 1547918276}
   - component: {fileID: 1547918275}
   m_Layer: 5
-  m_Name: Button TextPlayer
+  m_Name: NameIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
