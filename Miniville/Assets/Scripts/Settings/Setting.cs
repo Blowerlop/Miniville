@@ -53,9 +53,9 @@ namespace KILLER
             IsFullToggle = GetComponentInChildren<Toggle>();
 
             //AudioMaster.SetFloat("MusicVolume", PlayerPrefs.GetInt("VolM"));
-            txtM.text = PlayerPrefs.GetInt("VolM").ToString() + "%";
-            AudioMaster.SetFloat("GameVolume", PlayerPrefs.GetInt("VolG"));
-            txtG.text = PlayerPrefs.GetInt("VolG").ToString() + "%";
+           // txtM.text = PlayerPrefs.GetInt("VolM").ToString() + "%";
+        //    AudioMaster.SetFloat("GameVolume", PlayerPrefs.GetInt("VolG"));
+           // txtG.text = PlayerPrefs.GetInt("VolG").ToString() + "%";
             QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("Quality"));
             //qualityDrop.value = QualitySettings.GetQualityLevel();
             if(PlayerPrefs.GetInt("IsFull") == 1)
@@ -85,7 +85,7 @@ namespace KILLER
             resolutionDrop.value = tempIndex;
             SetVolumeValue(3);
             mySensEvent.Invoke();
-            DissUI(0);
+            //DissUI(0);
             myCloseEvent.AddListener(delegate { gameObject.SetActive(false); });
             gameObject.SetActive(false);
         }
