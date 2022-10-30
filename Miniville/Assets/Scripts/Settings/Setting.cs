@@ -52,7 +52,7 @@ namespace KILLER
                 mySensEvent = new UnityEvent();
             IsFullToggle = GetComponentInChildren<Toggle>();
 
-            AudioMaster.SetFloat("MusicVolume", PlayerPrefs.GetInt("VolM"));
+            //AudioMaster.SetFloat("MusicVolume", PlayerPrefs.GetInt("VolM"));
             txtM.text = PlayerPrefs.GetInt("VolM").ToString() + "%";
             AudioMaster.SetFloat("GameVolume", PlayerPrefs.GetInt("VolG"));
             txtG.text = PlayerPrefs.GetInt("VolG").ToString() + "%";
