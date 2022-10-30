@@ -20,7 +20,7 @@ public class RoomScript : MonoBehaviour
         hash.Add("Loaded", false);
         hash.Add("Forced", false);
         hash.Add("Gold", 300);
-        hash.Add("Deck",new int[] { });
+        hash.Add("Deck",new int[] { 0,1,2,3,4,6});
         if (PhotonNetwork.player.IsMasterClient)
         {
             foreach(SOCard card in CardManager._cards)

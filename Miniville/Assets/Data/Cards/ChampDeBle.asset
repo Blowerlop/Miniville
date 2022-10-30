@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: ChampDeBle
   m_EditorClassIdentifier: 
   name: 0
-  type: 0
   color: 0
   cost: 1
   activation: 01000000
   sprite: {fileID: 21300000, guid: 98a41ff1b0d8fac41a955b70d1458590, type: 3}
-  coinEffect: 1
-  typeEffect: 8
