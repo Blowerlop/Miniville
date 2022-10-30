@@ -91,24 +91,23 @@ public class PlayerNetwork : MonoBehaviour
         SOCard playerCard;
         //Player[] playersArray = GameManager.instance.players;
         PhotonPlayer currentPlayer = Game.GetPlayerByName(playerName);
-
-        for (int k = 0; k < ((int[])currentPlayer.CustomProperties["Deck"]).Length; k++)
+        for (int k = 0; k < ((int[])PhotonNetwork.player.CustomProperties["Deck"]).Length; k++)
         {
-            playerCard = CardManager.GetCard(((int[])currentPlayer.CustomProperties["Deck"])[k]);
+            playerCard = CardManager.GetCard(((int[])PhotonNetwork.player.CustomProperties["Deck"])[k]);
 
             foreach (int act in playerCard.activation)
             {
                 if (playerCard.color == SOCard.EColor.Bleu && act == face)
                 {
                     //currentPlayer.money += playerCard.effect;
-                    PlayerNetwork.AddGold(1);
+                    PlayerNetwork.AddGold(playerCard.coinEffect);
                     Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Blue color now {PlayerNetwork.GetGold()} gold");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Vert && act == face && playerName == PhotonNetwork.player.NickName)
                 {
                     //currentPlayer.money += playerCard.effect;
-                    PlayerNetwork.AddGold(1);
+                    PlayerNetwork.AddGold(playerCard.coinEffect);
                     Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
                 }
             }

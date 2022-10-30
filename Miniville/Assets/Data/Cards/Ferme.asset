@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Ferme
   m_EditorClassIdentifier: 
   name: 1
+  type: 1
   color: 0
-  cost: 2
+  cost: 1
   activation: 02000000
   sprite: {fileID: 21300000, guid: dc1a4f0aeea92f84ca5ae54d14ea39bb, type: 3}
+  coinEffect: 1
+  typeEffect: 8

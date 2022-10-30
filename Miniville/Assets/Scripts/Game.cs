@@ -147,9 +147,9 @@ public class Game : MonoBehaviour
                     if (playerCard.color == SOCard.EColor.Rouge && act == Die.face)
                     {
                         //currentPlayer.money -= playerCard.effect;
-                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -1);
+                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -playerCard.coinEffect);
                         //playersArray[m].money += playerCard.effect;
-                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[m], true, 1);
+                        PhotonNetwork.RPC(pv, "AddGoldRPC", players[m], true, playerCard.coinEffect);
                         Debug.Log($"{players[m].NickName} Get coinEffect --> Red color now {PlayerNetwork.GetGold()} gold");
                         Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coinEffect --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
                     }
