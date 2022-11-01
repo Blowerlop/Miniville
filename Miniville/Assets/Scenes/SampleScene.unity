@@ -245,10 +245,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1186702656}
-        m_TargetAssemblyTypeName: Die, Assembly-CSharp
-        m_MethodName: Throw
-        m_Mode: 3
+      - m_Target: {fileID: 1734457180}
+        m_TargetAssemblyTypeName: Game, Assembly-CSharp
+        m_MethodName: RollDice
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1615,6 +1615,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 398b7d3db7c0df54eb7019b7bf60b5ee, type: 2}
   - {fileID: 11400000, guid: df45335f92c39804c9e9b9f5b57d4991, type: 2}
   debug: {fileID: 1964602099}
+  buttonDie: {fileID: 206890707}
 --- !u!4 &1734457181
 Transform:
   m_ObjectHideFlags: 0

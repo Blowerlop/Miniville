@@ -28,7 +28,10 @@ public class Game : MonoBehaviour
 
     public static PhotonView pv;
 
-    private static Popup _popup;
+    public static Popup _popup;
+
+    static GameObject _buttonDie;
+    public GameObject buttonDie;
 
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
+        _buttonDie = buttonDie;
         _mainPlayerCardsUiParent = GameObject.Find("Cards MainPlayer").transform;
         _otherPlayerCardsUiParent = GameObject.Find("Cards OtherPlayers").transform;
         _deckCardsUiParent = GameObject.Find("Cards Deck").transform;
@@ -70,16 +74,17 @@ public class Game : MonoBehaviour
         {
             Debug.Log("Game is on !");
 
-            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[0].CustomProperties["Deck"]);
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[0].CustomProperties["Deck"], players[0].NickName);
+            PhotonNetwork.RPC(pv, "UpdateTextRPC", PhotonTargets.All,false, players[GameManager.instance.turn].NickName);
         }
         
-        _popup.UpdateText(players[GameManager.instance.turn].NickName);
 
     }
 
 
-    public static void DisplayCards(int[] ids)
+    public static void DisplayCards(int[] ids,string name)
     {
+        _buttonDie.SetActive(name == PhotonNetwork.player.NickName);
         foreach (GameObject go in ActualPlayerCards) { Destroy(go); }
         ActualPlayerCards.Clear();
         for (int j = 0; j < ids.Length; j++)
@@ -125,7 +130,7 @@ public class Game : MonoBehaviour
     {
         // i player turn
         //GameManager.instance.currentPlayer = GameManager.instance.players[i];
-        PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[i].CustomProperties["Deck"]);
+        PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[i].CustomProperties["Deck"], players[GameManager.instance.turn].NickName);
     }
 
     private static void CardEffectOnOtherPlayers()
@@ -174,7 +179,8 @@ public class Game : MonoBehaviour
             GameManager.instance.turn = 0;
         }
 
-        _popup.UpdateText(players[GameManager.instance.turn].NickName);
+        PhotonNetwork.RPC(pv, "UpdateTextRPC", PhotonTargets.All, false, players[GameManager.instance.turn].NickName);
+        //_popup.UpdateText(players[GameManager.instance.turn].NickName);
         Debug.Log(players[GameManager.instance.turn].NickName);
     }
 
@@ -186,7 +192,7 @@ public class Game : MonoBehaviour
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
             NextTurn();
-            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"]);
+            PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"], players[GameManager.instance.turn].NickName);
         }
     }
 
@@ -227,5 +233,9 @@ public class Game : MonoBehaviour
         {
             debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
         }
+    }
+    public void RollDice()
+    {
+        PhotonNetwork.RPC(pv, "MasterRoll", master, false);
     }
 }

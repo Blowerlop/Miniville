@@ -73,9 +73,9 @@ public class PlayerNetwork : MonoBehaviour
 
 
     [PunRPC]
-    public void DisplayCards(int[] ids)
+    public void DisplayCards(int[] ids, string name)
     {
-        Game.DisplayCards(ids);
+        Game.DisplayCards(ids,name);
     }
 
     [PunRPC]
@@ -112,5 +112,16 @@ public class PlayerNetwork : MonoBehaviour
                 }
             }
         }
+    }
+    [PunRPC]
+    public void UpdateTextRPC(string text)
+    {
+        Game._popup.UpdateText(text);
+    }
+
+    [PunRPC]
+    public void MasterRoll()
+    {
+        GameObject.Find("DiceGen").GetComponent<Die>().Throw(1);
     }
 }

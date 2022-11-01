@@ -17,6 +17,7 @@ public class Popup : MonoBehaviour
         _textMeshProUGUIRectTransform = _textMeshProUGUI.GetComponent<RectTransform>();
     }
 
+    [PunRPC]
     public async void UpdateText(string text)
     {
         _textMeshProUGUIRectTransform.localPosition = new Vector2(0, -Screen.currentResolution.height / 2 + 50);

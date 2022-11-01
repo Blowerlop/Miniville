@@ -97,9 +97,8 @@ public  class Die : MonoBehaviour
                 }
                 RanDizer(ref eRot, ref pos);
             }
-            dices.Add(Instantiate( dice, pos,
-            Quaternion.Euler(Random.Range(10, 30), eRot+Random.Range(-10, 11), Random.Range(0, 360)),
-            this.transform ));
+            dices.Add(PhotonNetwork.Instantiate( "dice", pos,
+            Quaternion.Euler(Random.Range(10, 30), eRot+Random.Range(-10, 11), Random.Range(0, 360)),0).GetComponent<Rigidbody>());
             dices[^1].AddForce(dices[^1].transform.forward*Random.Range(400, 700));
         }
     }
@@ -152,7 +151,7 @@ public  class Die : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         rollResult = dicesVal[0];
         Roll(1);
-        Destroy(diecy.gameObject);
+        PhotonNetwork.Destroy(diecy.gameObject);
     }
 
 
