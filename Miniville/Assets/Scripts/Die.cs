@@ -8,9 +8,15 @@ public  class Die : MonoBehaviour
 {
     private int _nbrFaces = 6;
     public static int face;
-    [SerializeField] private GameObject _canvas;
+    [SerializeField] private static GameObject _canvas;
 
     private static int rollResult;
+
+    private void Start()
+    {
+        _canvas = GameObject.Find("Game Canvas");
+    }
+
     public static void Roll(int nbrDeDes)
     {
         /*
@@ -30,7 +36,7 @@ public  class Die : MonoBehaviour
             
         Debug.Log($"Roll result : {rollResult}");
         Debug.Log(dicesVal[0]);
-        
+        _canvas.SetActive(true);
         Game.Play();
         //return _face;
     }
