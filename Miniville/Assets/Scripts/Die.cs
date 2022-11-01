@@ -1,25 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public  class Die : MonoBehaviour
 {
     private int _nbrFaces = 6;
     public static int face;
+    [SerializeField] private GameObject _canvas;
 
+    private static int rollResult;
     public static void Roll(int nbrDeDes)
     {
+        /*
         face = 0;
-        int rollResult;
-
+        int rollResult = -1;
+        
+        /*
         for (int i = 0; i < nbrDeDes; i++)
         {
-            rollResult = Random.Range(1, 6);
+            
+            //rollResult = Random.Range(1, 6);
             Debug.Log($"Roll result : {rollResult}");
             face += rollResult;
         }
-
-
+        */
+        
+            
+        Debug.Log($"Roll result : {rollResult}");
+        Debug.Log(dicesVal[0]);
+        
         Game.Play();
         //return _face;
     }
@@ -44,7 +55,11 @@ public  class Die : MonoBehaviour
     }
 
 
-    public void Throw(int nbDice) {
+    public void Throw(int nbDice)
+    {
+        _canvas.SetActive(false);
+        dices.Clear();
+        dicesVal.Clear();
         res=false;
         int eRot = 0;
         Vector3 pos = new();
@@ -124,11 +139,17 @@ public  class Die : MonoBehaviour
             rotD.x<185&&rotD.x>175&&rotD.z<275&&rotD.z>265) {
 
             dicesVal.Add(6);
-
+            
         } else {
             diecy.AddForce(new Vector3(1, 1, 1)*300);
             StartCoroutine(ResD(diecy));
+            yield return null;
         }
+
+        yield return new WaitForSeconds(2.0f);
+        rollResult = dicesVal[0];
+        Roll(1);
+        Destroy(diecy.gameObject);
     }
 
 
