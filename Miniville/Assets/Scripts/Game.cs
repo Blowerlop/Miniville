@@ -28,6 +28,8 @@ public class Game : MonoBehaviour
 
     public static PhotonView pv;
 
+    private static Popup _popup;
+
     private void Awake()
     {
         for (int i = 0; i < CardManager._cards.Count; i++)
@@ -41,6 +43,7 @@ public class Game : MonoBehaviour
         _mainPlayerCardsUiParent = GameObject.Find("Cards MainPlayer").transform;
         _otherPlayerCardsUiParent = GameObject.Find("Cards OtherPlayers").transform;
         _deckCardsUiParent = GameObject.Find("Cards Deck").transform;
+        _popup = GameObject.Find("Popup").GetComponent<Popup>();
         GameObject go = (GameObject)Resources.Load("Card");
         _cardPrefab = go.GetComponent<Card>();
         var tempGameManagerInstance = GameManager.instance;
@@ -69,6 +72,9 @@ public class Game : MonoBehaviour
 
             PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All,false,(int[])players[0].CustomProperties["Deck"]);
         }
+        
+        _popup.UpdateText(players[GameManager.instance.turn].NickName);
+
     }
 
 
@@ -167,6 +173,9 @@ public class Game : MonoBehaviour
         {
             GameManager.instance.turn = 0;
         }
+
+        _popup.UpdateText(players[GameManager.instance.turn].NickName);
+        Debug.Log(players[GameManager.instance.turn].NickName);
     }
 
     public static void Play()
