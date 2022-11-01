@@ -19,7 +19,7 @@ public class ButtonClick : MonoBehaviour
 
     public void RollDie()
     {
-        Die.Roll(1);
+        //Die.Roll(1);
     }
 
 

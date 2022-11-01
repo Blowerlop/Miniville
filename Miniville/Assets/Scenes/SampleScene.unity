@@ -1231,6 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891743bf460ff1e48bef58e460c16f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 1125159310}
   redDice: {fileID: 54369848247760118, guid: 40de577162b89453c822b67f8af1e097, type: 3}
 --- !u!4 &1186702657
 Transform:
