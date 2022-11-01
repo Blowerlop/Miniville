@@ -10,6 +10,7 @@ public class Popup : MonoBehaviour
 
     public void UpdateText(string text)
     {
+        _textMeshProUGUI.GetComponent<RectTransform>().transform.position = new Vector2(0, Screen.currentResolution.height / 2);
         _textMeshProUGUI.text = $"{text}'s turn";
     }
 }
