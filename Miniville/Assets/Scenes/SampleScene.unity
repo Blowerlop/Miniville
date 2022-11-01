@@ -244,7 +244,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 206890710}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Die, Assembly-CSharp
+        m_MethodName: Throw
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &206890710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,51 +1076,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1059145208
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1059145210}
-  - component: {fileID: 1059145209}
-  m_Layer: 0
-  m_Name: DieSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1059145209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059145208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 891743bf460ff1e48bef58e460c16f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  redDice: {fileID: 0}
---- !u!4 &1059145210
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059145208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125159310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,7 +1317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24776602, y: 0}
   m_AnchorMax: {x: 0.74945664, y: 1}
-  m_AnchoredPosition: {x: 1.0200195, y: -47.340515}
+  m_AnchoredPosition: {x: 1.0200195, y: -47.340576}
   m_SizeDelta: {x: -1.19, y: -93.881}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1666957199
@@ -1387,7 +1354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.24776602, y: 1}
-  m_AnchoredPosition: {x: 0.8499756, y: 0}
+  m_AnchoredPosition: {x: 0.85009766, y: 0}
   m_SizeDelta: {x: 2.100006, y: 0.7999878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1692836486
