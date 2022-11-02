@@ -234,8 +234,8 @@ public class Game : MonoBehaviour
             debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
         }
     }
-    public void RollDice()
+    public void RollDice(int nbrDes)
     {
-        PhotonNetwork.RPC(pv, "MasterRoll", master, false);
+        PhotonNetwork.RPC(pv, "MasterRoll", master, false, nbrDes);
     }
 }

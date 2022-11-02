@@ -120,8 +120,8 @@ public class PlayerNetwork : MonoBehaviour
     }
 
     [PunRPC]
-    public void MasterRoll()
+    public void MasterRoll(int nbrDes)
     {
-        GameObject.Find("DiceGen").GetComponent<Die>().Throw(1);
+        GameObject.Find("DiceGen").GetComponent<Die>().Throw(nbrDes);
     }
 }

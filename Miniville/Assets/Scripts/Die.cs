@@ -13,7 +13,7 @@ public  class Die : MonoBehaviour
     private static int rollResult;
     
 
-    public void Roll(int nbrDeDes)
+    public void Roll()
     {
         /*
         face = 0;
@@ -30,9 +30,10 @@ public  class Die : MonoBehaviour
         */
 
         face = 0;
-        Debug.Log($"Roll result : {rollResult}");
-        Debug.Log(dicesVal[0]);
-        face += dicesVal[0];
+        //Debug.Log($"Roll result : {rollResult}");
+        dicesVal.ForEach(x => face += x);
+        //face += dicesVal[0];
+        Debug.Log(face);
         _canvas.SetActive(true);
         Game.Play();
         //return _face;
@@ -61,8 +62,7 @@ public  class Die : MonoBehaviour
     public void Throw(int nbDice)
     {
         _canvas.SetActive(false);
-        dices.Clear();
-        dicesVal.Clear();
+        ClearDices();
         res=false;
         int eRot = 0;
         Vector3 pos = new();
@@ -149,9 +149,12 @@ public  class Die : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2.0f);
-        rollResult = dicesVal[0];
-        Roll(1);
-        PhotonNetwork.Destroy(diecy.gameObject);
+        //rollResult = dicesVal[0];
+        if (dicesVal.Count == dices.Count)
+        {
+            Roll();
+            //PhotonNetwork.Destroy(diecy.gameObject);
+        }
     }
 
 
@@ -202,3 +205,4 @@ public  class Die : MonoBehaviour
         dicesVal.Clear();
     }
 }
+
