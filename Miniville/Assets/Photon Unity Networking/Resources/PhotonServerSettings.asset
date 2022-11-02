@@ -55,4 +55,5 @@ MonoBehaviour:
   - UpdateTextRPC
   - MasterRoll
   - End
+  - Popup
   DisableAutoOpenWizard: 1
