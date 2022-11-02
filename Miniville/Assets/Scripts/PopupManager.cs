@@ -12,6 +12,8 @@ public class PopupManager : MonoBehaviour
     [SerializeField] float horizontalSpeed;
     [SerializeField] float verticalSpeed;
 
+    [SerializeField] private float _horizontalDistance;
+
     [SerializeField] private Transform parentUI;
 
     public static PopupManager instance;
@@ -48,6 +50,7 @@ public class PopupManager : MonoBehaviour
             }
 
             LePopHimself lui = Instantiate<LePopHimself>(popopup, parentUI);
+            lui.horizontalDistance = _horizontalDistance;
             lui.changetexte(data);
             SomePopup.Add(lui);
     }

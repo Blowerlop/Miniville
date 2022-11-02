@@ -14,12 +14,13 @@ public class LePopHimself : MonoBehaviour
     [SerializeField] float verticalSpeed;
 
     private bool moveVerticaly;
-    private float moveXValue = -205f;
+    public float moveXValue = -205f;
     private float moveYValue;
     private float currentTime;
     private Vector3 lastPosition;
     public float tempsdevie;
     private bool mort;
+    public float horizontalDistance;
 
 
     // Start is called before the first frame update
@@ -37,7 +38,7 @@ public class LePopHimself : MonoBehaviour
         tempsdevie -= Time.deltaTime;
         if (tempsdevie <= 0)
         {
-            this.MoveHorizontal(300);
+            this.MoveHorizontal(horizontalDistance);
             this.MoveH();
 
             if (tempsdevie <= -2) {

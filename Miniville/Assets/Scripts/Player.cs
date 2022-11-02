@@ -11,20 +11,22 @@ public class Player : MonoBehaviour
 
     public static bool TryBuyCard()
     {
-        SOCard card = GameManager.instance.clickedCard.card;
-        bool canBuy = PlayerNetwork.GetGold() >= card.cost;
+        Card card = GameManager.instance.clickedCard;
+        SOCard soCard = card.card;
+        bool canBuy = PlayerNetwork.GetGold() >= soCard.cost;
+        canBuy = card.canBeBought;
 
         if (canBuy == false)
         {
-            Debug.Log("You don't have enough money !");
+            Debug.Log("You can't buy !");
         }
-        else if (Game.GetCardNumberOfType(card.name.ToString()) < 1)
+        else if (Game.GetCardNumberOfType(soCard.name.ToString()) < 1)
         {
             Debug.Log("NoMoreCard");
         }
         else
         {
-            BuyCard(card);
+            BuyCard(soCard);
         }
 
         return canBuy;

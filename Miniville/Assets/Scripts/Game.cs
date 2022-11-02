@@ -20,7 +20,8 @@ public class Game : MonoBehaviour
     public static List<GameObject> DeckCards = new();
     public static List<SOCard> cards = new();
 
-    public TMPro.TMP_Text debug;
+    public TMPro.TMP_Text goldMasterPlayerUI;
+    public TMPro.TMP_Text goldOtherPlayersUI;
 
     private bool isFinish = false;
 
@@ -97,45 +98,9 @@ public class Game : MonoBehaviour
 
         for (int j = 0; j < ids.Length; j++)
         {
-            Card card;
-            card = Instantiate(_cardPrefab);
             SOCard soCard = CardManager.GetCard(ids[j]);
-
-
-            int index;
-
-            if (dicoDisplayCards.ContainsKey(soCard))
-            {
-                index = dicoDisplayCards[soCard];
-            }
-            else
-            {
-                index = dicoDisplayCards.Keys.Count;
-                dicoDisplayCards.Add(soCard, index);
-            }
-
-
-            card.transform.SetParent(_otherPlayerCardsUiParent.GetChild(index));
-
-            PlayerCards.Add(card.gameObject);
-            card.card = soCard;
-            card.LoadImage();
-        }
-    }
-    public static void DisplayCardsLocal()
-    {
-        int[] ids = (int[])PhotonNetwork.player.CustomProperties["Deck"];
-        foreach (GameObject go in PlayerCards) { Destroy(go); }
-        PlayerCards.Clear();
-
-
-        for (int j = 0; j < ids.Length; j++)
-        {
             
-
-            Card card;
-            card = Instantiate(_cardPrefab);
-            SOCard soCard = CardManager.GetCard(ids[j]);
+            
 
 
             int index;
@@ -150,8 +115,62 @@ public class Game : MonoBehaviour
                 dicoDisplayCards.Add(soCard, index);
             }
             
+            Card card;
+            card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent.GetChild(index));
+            //card.transform.SetParent(_mainPlayerCardsUiParent.GetChild(index));
 
-            card.transform.SetParent(_mainPlayerCardsUiParent.GetChild(index));
+            ActualPlayerCards.Add(card.gameObject);
+            card.card = soCard;
+            card.LoadImage();         
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /*
+            Card card;
+            card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent);
+            ActualPlayerCards.Add(card.gameObject);            
+            card.card = CardManager.GetCard(ids[j]);
+            card.LoadImage();
+            */
+        }
+    }
+    public static void DisplayCardsLocal()
+    {
+        int[] ids = (int[])PhotonNetwork.player.CustomProperties["Deck"];
+        foreach (GameObject go in PlayerCards) { Destroy(go); }
+        PlayerCards.Clear();
+
+
+        for (int j = 0; j < ids.Length; j++)
+        {
+            
+            SOCard soCard = CardManager.GetCard(ids[j]);
+            
+            
+
+
+            int index;
+           
+            if (dicoDisplayCards.ContainsKey(soCard))
+            {
+                index = dicoDisplayCards[soCard];
+            }
+            else
+            {
+                index = dicoDisplayCards.Keys.Count;
+                dicoDisplayCards.Add(soCard, index);
+            }
+            
+            Card card;
+            card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent.GetChild(index));
+            //card.transform.SetParent(_mainPlayerCardsUiParent.GetChild(index));
 
             PlayerCards.Add(card.gameObject);
             card.card = soCard;
@@ -167,6 +186,12 @@ public class Game : MonoBehaviour
         {
             Card card;
             card = Instantiate(_cardPrefab, _deckCardsUiParent);
+
+            if (Game.players[GameManager.instance.turn].IsMasterClient)
+            {
+                card.canBeBought = true;
+            }
+            
             DeckCards.Add(card.gameObject);
             card.card = cards[j];
             card.LoadImage();
@@ -263,6 +288,7 @@ public class Game : MonoBehaviour
     public static int GetCardNumberOfType(string cardName)
     {
         return (int)master.CustomProperties[cardName];
+        
     }
     public static void TakeCard(string cardName)
     {
@@ -277,10 +303,18 @@ public class Game : MonoBehaviour
 
     public void Update()
     {
-        debug.text = "";
+        //Debug.text = "";
         foreach(PhotonPlayer pla in PhotonNetwork.playerList)
         {
-            debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
+            if (pla.IsMasterClient)
+            {
+                goldMasterPlayerUI.text = pla.CustomProperties["Gold"].ToString();
+            }
+            else
+            {
+                goldOtherPlayersUI.text = pla.CustomProperties["Gold"].ToString();
+            }
+            //debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
         }
     }
     public void RollDice(int nbrDes)

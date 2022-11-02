@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 183.3115, y: 66.30072}
+  m_SizeDelta: {x: 275, y: 66.30072}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3642671166495900003
 CanvasRenderer:
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a41839972d212f49a26068d6412ee6f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64c14b47cce7f4a4281f3ec869a1c431, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -94,7 +94,9 @@ MonoBehaviour:
   Chef: {fileID: 9099473981138641141, guid: 2bf36c56f36e4c94da230ab724c3c947, type: 3}
   horizontalSpeed: 1
   verticalSpeed: 1
+  moveXValue: 0
   tempsdevie: 0
+  horizontalDistance: 0
 --- !u!1 &3642671167155264275
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Je suis un texte part d\xE9faut, Salut!"
+  m_text: "Je suis un texte par d\xE9faut, Salut!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -170,8 +172,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280660182
-  m_fontColor: {r: 0.8396226, g: 0.6906702, b: 0.14653791, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -188,15 +190,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 28.35
   m_fontSizeBase: 12
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 33
   m_HorizontalAlignment: 32
-  m_VerticalAlignment: 4096
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

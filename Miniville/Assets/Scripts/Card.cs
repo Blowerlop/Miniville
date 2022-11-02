@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] public SOCard card;
+    public bool canBeBought = false;
     
     private void Start()
     {
