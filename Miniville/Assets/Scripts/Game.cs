@@ -84,7 +84,8 @@ public class Game : MonoBehaviour
 
     public static void DisplayCards(int[] ids,string name)
     {
-        _buttonDie.SetActive(name == PhotonNetwork.player.NickName);
+        if(name != "None_Name")
+            _buttonDie.SetActive(name == PhotonNetwork.player.NickName);
         foreach (GameObject go in ActualPlayerCards) { Destroy(go); }
         ActualPlayerCards.Clear();
         for (int j = 0; j < ids.Length; j++)

@@ -73,7 +73,7 @@ public class PlayerNetwork : MonoBehaviour
 
 
     [PunRPC]
-    public void DisplayCards(int[] ids, string name)
+    public void DisplayCards(int[] ids, string name = "None_Name")
     {
         Game.DisplayCards(ids,name);
     }
@@ -81,7 +81,7 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     public void MasterDisplay()
     {
-        PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"], PhotonNetwork.player.NickName);
+        PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"]);
         Game.DisplayCardsLocal();
     }
 
