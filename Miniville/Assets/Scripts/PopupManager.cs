@@ -25,15 +25,13 @@ public class PopupManager : MonoBehaviour
         InvocationPop(dataa);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public void Eleve()
+    private void Update()
     {
-        print(SomePopup.Count);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InvocationPop(dataa);
+        }
     }
 
     public void InvocationPop(string data)
