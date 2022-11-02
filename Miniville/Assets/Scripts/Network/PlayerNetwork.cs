@@ -81,7 +81,7 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     public void MasterDisplay()
     {
-        PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"]);
+        PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"], PhotonNetwork.player.NickName);
         Game.DisplayCardsLocal();
     }
 
@@ -89,26 +89,45 @@ public class PlayerNetwork : MonoBehaviour
     public void CardEffetOnPlayer(string playerName, int face)
     {
         SOCard playerCard;
+        int[] cards = (int[])PhotonNetwork.player.CustomProperties["Deck"];
+        List<SOCard> cardsSO = new();
+        foreach(int cardID in cards)
+        {
+            cardsSO.Add(CardManager.GetCard(cardID));
+        }
         //Player[] playersArray = GameManager.instance.players;
         PhotonPlayer currentPlayer = Game.GetPlayerByName(playerName);
         for (int k = 0; k < ((int[])PhotonNetwork.player.CustomProperties["Deck"]).Length; k++)
         {
-            playerCard = CardManager.GetCard(((int[])PhotonNetwork.player.CustomProperties["Deck"])[k]);
+            playerCard = CardManager.GetCard(cards[k]);
 
             foreach (int act in playerCard.activation)
             {
                 if (playerCard.color == SOCard.EColor.Bleu && act == face)
                 {
                     //currentPlayer.money += playerCard.effect;
-                    PlayerNetwork.AddGold(playerCard.coinEffect);
+                    AddGold(playerCard.coinEffect);
                     Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Blue color now {PlayerNetwork.GetGold()} gold");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Vert && act == face && playerName == PhotonNetwork.player.NickName)
                 {
-                    //currentPlayer.money += playerCard.effect;
-                    PlayerNetwork.AddGold(playerCard.coinEffect);
-                    Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
+                    if (playerCard.typeEffect != SOCard.EType.None)
+                    {
+                        foreach(SOCard card in cardsSO)
+                        {
+                            if (card.type == playerCard.typeEffect)
+                            {
+                                AddGold(playerCard.coinEffect);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //currentPlayer.money += playerCard.effect;
+                        AddGold(playerCard.coinEffect);
+                        Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
+                    }
                 }
             }
         }

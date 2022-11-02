@@ -32,6 +32,7 @@ public  class Die : MonoBehaviour
         face = 0;
         //Debug.Log($"Roll result : {rollResult}");
         dicesVal.ForEach(x => face += x);
+        face = 11;
         //face += dicesVal[0];
         Debug.Log(face);
         _canvas.SetActive(true);
