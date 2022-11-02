@@ -29,11 +29,7 @@ public  class Die : MonoBehaviour
         }
         */
 
-        if (dicesVal.Count != dices.Count)
-        {
-            return;
-            //PhotonNetwork.Destroy(diecy.gameObject);
-        }
+        
 
 
 
@@ -159,7 +155,14 @@ public  class Die : MonoBehaviour
 
         yield return new WaitForSeconds(2.0f);
         //rollResult = dicesVal[0];
-        Roll();
+
+        if (dicesVal.Count == dices.Count)
+        {
+            Roll();
+            Debug.Log("Je suis passé ici");
+            //PhotonNetwork.Destroy(diecy.gameObject);
+        }
+        
     }
 
 
