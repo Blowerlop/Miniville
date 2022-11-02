@@ -29,7 +29,7 @@ public  class Die : MonoBehaviour
         }
         */
 
-        if (dicesVal.Count == dices.Count)
+        if (dicesVal.Count != dices.Count)
         {
             return;
             //PhotonNetwork.Destroy(diecy.gameObject);
