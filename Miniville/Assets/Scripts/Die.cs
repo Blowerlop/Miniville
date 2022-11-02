@@ -159,6 +159,7 @@ public  class Die : MonoBehaviour
         if (dicesVal.Count == dices.Count)
         {
             Roll();
+            StopAllCoroutines();
             //PhotonNetwork.Destroy(diecy.gameObject);
         }
         
