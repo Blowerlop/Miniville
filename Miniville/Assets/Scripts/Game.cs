@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
      [SerializeField] private static Card _cardPrefab;
      private static Transform _otherPlayerCardsUiParent, _mainPlayerCardsUiParent, _deckCardsUiParent;
 
+    public static PopupManager popupManager;
+
     private static List<GameObject> PlayerCards = new List<GameObject>(), ActualPlayerCards = new List<GameObject>();
     public static List<GameObject> DeckCards = new();
     public static List<SOCard> cards = new();
@@ -53,6 +55,7 @@ public class Game : MonoBehaviour
         GameObject go = (GameObject)Resources.Load("Card");
         _cardPrefab = go.GetComponent<Card>();
         var tempGameManagerInstance = GameManager.instance;
+        popupManager = GameObject.Find("ManagerPopup").GetComponent<PopupManager>();
         for (int i = 0; i < GameManager.instance.piles.Length; i++)
         {
             GameManager.instance.piles[i] = new Pile();
@@ -206,8 +209,8 @@ public class Game : MonoBehaviour
                         PhotonNetwork.RPC(pv, "AddGoldRPC", players[GameManager.instance.turn], true, -playerCard.coinEffect);
                         //playersArray[m].money += playerCard.effect;
                         PhotonNetwork.RPC(pv, "AddGoldRPC", players[m], true, playerCard.coinEffect);
-                        Debug.Log($"{players[m].NickName} Get coinEffect --> Red color now {PlayerNetwork.GetGold()} gold");
-                        Debug.Log($"{players[GameManager.instance.turn].NickName} Loose coinEffect --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
+                        PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{players[m].NickName} Get coinEffect --> Red color now {PlayerNetwork.GetGold()} gold");
+                        PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{players[GameManager.instance.turn].NickName} Loose coinEffect --> Red color now {players[GameManager.instance.turn].CustomProperties["Gold"]} gold");
                     }
                 }
             }
@@ -236,6 +239,7 @@ public class Game : MonoBehaviour
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
+            CheckEnd();
             NextTurn();
             PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"], players[GameManager.instance.turn].NickName);
         }
@@ -282,5 +286,26 @@ public class Game : MonoBehaviour
     public void RollDice(int nbrDes)
     {
         PhotonNetwork.RPC(pv, "MasterRoll", master, false, nbrDes);
+    }
+
+    public static void CheckEnd()
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            foreach (PhotonPlayer pla in players)
+            {
+                if ((int)pla.CustomProperties["Gold"] >= 750 && (int)PhotonNetwork.player.CustomProperties["WinnerGold"] < (int)pla.CustomProperties["Gold"])
+                {
+                    Hashtable hash = new Hashtable();
+                    hash.Add("Winner", pla.NickName);
+                    hash.Add("WinnerGold", (int)pla.CustomProperties["Gold"]);
+                    master.SetCustomProperties(hash);
+                }
+            }
+            if ((int)PhotonNetwork.player.CustomProperties["WinnerGold"] != 0)
+            {
+                PhotonNetwork.RPC(pv, "End", PhotonTargets.All, false);
+            }
+        }
     }
 }

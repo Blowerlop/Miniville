@@ -70,4 +70,9 @@ public class Lobby : MonoBehaviour
     {
         mapName = map;
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

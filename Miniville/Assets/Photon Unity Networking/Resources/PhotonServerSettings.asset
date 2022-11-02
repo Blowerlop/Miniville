@@ -54,4 +54,5 @@ MonoBehaviour:
   - UpdateText
   - UpdateTextRPC
   - MasterRoll
+  - End
   DisableAutoOpenWizard: 1
