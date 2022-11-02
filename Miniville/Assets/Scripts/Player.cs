@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         }
         if (PhotonNetwork.player.IsMasterClient)
         {
-            PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"]);
+            PhotonNetwork.RPC(Game.pv, "DisplayCards", PhotonTargets.All, false, (int[])Game.players[GameManager.instance.turn].CustomProperties["Deck"], "None_Name");
             Game.DisplayCardsLocal();
         }
         else
