@@ -29,8 +29,9 @@ public  class Die : MonoBehaviour
         }
         */
 
-        
 
+
+        Debug.Log("Je suis passé ici");
 
 
         face = 0;
@@ -159,7 +160,6 @@ public  class Die : MonoBehaviour
         if (dicesVal.Count == dices.Count)
         {
             Roll();
-            Debug.Log("Je suis passé ici");
             //PhotonNetwork.Destroy(diecy.gameObject);
         }
         

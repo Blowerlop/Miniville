@@ -12,6 +12,8 @@ public class PopupManager : MonoBehaviour
     [SerializeField] float horizontalSpeed;
     [SerializeField] float verticalSpeed;
 
+    [SerializeField] private Transform parentUI;
+
     public static PopupManager instance;
 
     private void Awake()
@@ -45,7 +47,7 @@ public class PopupManager : MonoBehaviour
                 }
             }
 
-            LePopHimself lui = Instantiate<LePopHimself>(popopup, this.transform.position, Quaternion.identity, this.transform);
+            LePopHimself lui = Instantiate<LePopHimself>(popopup, parentUI);
             lui.changetexte(data);
             SomePopup.Add(lui);
     }

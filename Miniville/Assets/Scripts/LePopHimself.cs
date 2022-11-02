@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LePopHimself : MonoBehaviour
 {
-    public GameObject moi;
+
     public TMPro.TextMeshProUGUI text;
 
     public PopupManager Chef;
@@ -42,7 +42,7 @@ public class LePopHimself : MonoBehaviour
 
             if (tempsdevie <= -2) {
                 PopupManager.instance.SomePopup.Remove(this);
-                Destroy(moi);
+                Destroy(gameObject);
             }
         }
 
