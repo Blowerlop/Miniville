@@ -24,7 +24,7 @@ public class PopupManager : MonoBehaviour
     private void Start()
     {
         SomePopup = new List<LePopHimself>() { };
-        InvocationPop(dataa);
+        //InvocationPop(dataa);
     }
 
 

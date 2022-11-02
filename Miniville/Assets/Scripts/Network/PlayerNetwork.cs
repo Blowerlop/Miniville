@@ -107,7 +107,7 @@ public class PlayerNetwork : MonoBehaviour
                 {
                     //currentPlayer.money += playerCard.effect;
                     AddGold(playerCard.coinEffect);
-                    Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Blue color now {PlayerNetwork.GetGold()} gold");
+                    PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{currentPlayer.NickName} Get coinEffect --> Blue color now {PlayerNetwork.GetGold()} gold");
                 }
 
                 else if (playerCard.color == SOCard.EColor.Vert && act == face && playerName == PhotonNetwork.player.NickName)
@@ -119,6 +119,7 @@ public class PlayerNetwork : MonoBehaviour
                             if (card.type == playerCard.typeEffect)
                             {
                                 AddGold(playerCard.coinEffect);
+                                PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
                             }
                         }
                     }
@@ -126,7 +127,7 @@ public class PlayerNetwork : MonoBehaviour
                     {
                         //currentPlayer.money += playerCard.effect;
                         AddGold(playerCard.coinEffect);
-                        Debug.Log($"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
+                        PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
                     }
                 }
             }
@@ -142,5 +143,16 @@ public class PlayerNetwork : MonoBehaviour
     public void MasterRoll(int nbrDes)
     {
         GameObject.Find("DiceGen").GetComponent<Die>().Throw(nbrDes);
+    }
+    [PunRPC]
+    public void End()
+    {
+        PhotonNetwork.LoadLevel("EndGame");
+    }
+
+    [PunRPC]
+    public void Popup(string data)
+    {
+        Game.popupManager.InvocationPop(data);
     }
 }
