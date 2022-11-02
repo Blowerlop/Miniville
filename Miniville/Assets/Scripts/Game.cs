@@ -33,6 +33,8 @@ public class Game : MonoBehaviour
     static GameObject _buttonDie;
     public GameObject buttonDie;
 
+    private static Dictionary<SOCard, int> dicoDisplayCards = new Dictionary<SOCard, int>();
+
     private void Awake()
     {
         for (int i = 0; i < CardManager._cards.Count; i++)
@@ -88,12 +90,32 @@ public class Game : MonoBehaviour
             _buttonDie.SetActive(name == PhotonNetwork.player.NickName);
         foreach (GameObject go in ActualPlayerCards) { Destroy(go); }
         ActualPlayerCards.Clear();
+        Dictionary<SOCard, int> dicoDisplayCards = new Dictionary<SOCard, int>();
+
         for (int j = 0; j < ids.Length; j++)
         {
             Card card;
-            card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent);
-            ActualPlayerCards.Add(card.gameObject);            
-            card.card = CardManager.GetCard(ids[j]);
+            card = Instantiate(_cardPrefab);
+            SOCard soCard = CardManager.GetCard(ids[j]);
+
+
+            int index;
+
+            if (dicoDisplayCards.ContainsKey(soCard))
+            {
+                index = dicoDisplayCards[soCard];
+            }
+            else
+            {
+                index = dicoDisplayCards.Keys.Count;
+                dicoDisplayCards.Add(soCard, index);
+            }
+
+
+            card.transform.SetParent(_otherPlayerCardsUiParent.GetChild(index));
+
+            PlayerCards.Add(card.gameObject);
+            card.card = soCard;
             card.LoadImage();
         }
     }
@@ -102,12 +124,34 @@ public class Game : MonoBehaviour
         int[] ids = (int[])PhotonNetwork.player.CustomProperties["Deck"];
         foreach (GameObject go in PlayerCards) { Destroy(go); }
         PlayerCards.Clear();
+
+
         for (int j = 0; j < ids.Length; j++)
         {
+            
+
             Card card;
-            card = Instantiate(_cardPrefab, _mainPlayerCardsUiParent);
+            card = Instantiate(_cardPrefab);
+            SOCard soCard = CardManager.GetCard(ids[j]);
+
+
+            int index;
+           
+            if (dicoDisplayCards.ContainsKey(soCard))
+            {
+                index = dicoDisplayCards[soCard];
+            }
+            else
+            {
+                index = dicoDisplayCards.Keys.Count;
+                dicoDisplayCards.Add(soCard, index);
+            }
+            
+
+            card.transform.SetParent(_mainPlayerCardsUiParent.GetChild(index));
+
             PlayerCards.Add(card.gameObject);
-            card.card = CardManager.GetCard(ids[j]);
+            card.card = soCard;
             card.LoadImage();
         }
     }

@@ -120,8 +120,8 @@ public  class Die : MonoBehaviour
         yield return new WaitWhile(() => diecy.velocity!=Vector3.zero);
 
         Vector3 rotD = diecy.transform.rotation.eulerAngles;
-        if ((rotD.x>355&&rotD.x<365||rotD.x>-5&&rotD.x<5)&&rotD.z<275&&rotD.z>265||
-            rotD.x<185&&rotD.x>175&&rotD.z<95&&rotD.z>85) {
+        if ((rotD.x>355 && rotD.x<365 || rotD.x>-5&&rotD.x<5)&&rotD.z<275&&rotD.z>265||
+            rotD.x<185 && rotD.x>175 && rotD.z<95&&rotD.z>85) {
 
             dicesVal.Add(1);
 
