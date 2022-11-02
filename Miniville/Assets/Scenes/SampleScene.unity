@@ -4859,9 +4859,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66226581c303b2e49a69105e9184f05e, type: 2}
   - {fileID: 11400000, guid: 398b7d3db7c0df54eb7019b7bf60b5ee, type: 2}
   - {fileID: 11400000, guid: df45335f92c39804c9e9b9f5b57d4991, type: 2}
+  diceUI: {fileID: 1946447099}
   goldMasterPlayerUI: {fileID: 866608214}
   goldOtherPlayersUI: {fileID: 1389581869}
   buttonDie: {fileID: 206890707}
+  button2Die: {fileID: 84181217}
 --- !u!4 &1734457181
 Transform:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public  class Die : MonoBehaviour
         dicesVal.ForEach(x => face += x);
         //face += dicesVal[0];
         Debug.Log(face);
-        _canvas.SetActive(true);
+        PhotonNetwork.RPC(Game.pv, "SetCanvas", PhotonTargets.All, false, true);
         Game.Play();
         //return _face;
     }
@@ -66,7 +66,7 @@ public  class Die : MonoBehaviour
 
     public void Throw(int nbDice)
     {
-        _canvas.SetActive(false);
+        PhotonNetwork.RPC(Game.pv, "SetCanvas", PhotonTargets.All, false, false);
         ClearDices();
         res=false;
         int eRot = 0;
@@ -206,7 +206,7 @@ public  class Die : MonoBehaviour
 
     public void ClearDices() {
         foreach (Rigidbody D in dices) {
-            Destroy(D.gameObject);
+            PhotonNetwork.Destroy(D.gameObject);
         }
         dices.Clear();
         dicesVal.Clear();

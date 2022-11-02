@@ -20,6 +20,10 @@ public class Game : MonoBehaviour
     public static List<GameObject> DeckCards = new();
     public static List<SOCard> cards = new();
 
+    public static TMPro.TMP_Text _goldMasterPlayerUI;
+    public static TMPro.TMP_Text _goldOtherPlayersUI;
+    public static TMPro.TMP_Text _diceUI;
+    public TMPro.TMP_Text diceUI;
     public TMPro.TMP_Text goldMasterPlayerUI;
     public TMPro.TMP_Text goldOtherPlayersUI;
 
@@ -35,6 +39,8 @@ public class Game : MonoBehaviour
 
     static GameObject _buttonDie;
     public GameObject buttonDie;
+    static GameObject _button2Die;
+    public GameObject button2Die;
 
     private static Dictionary<SOCard, int> dicoDisplayCards = new Dictionary<SOCard, int>();
 
@@ -48,7 +54,11 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
+        _diceUI = diceUI;
+        _goldMasterPlayerUI = goldMasterPlayerUI;
+        _goldOtherPlayersUI = goldOtherPlayersUI;
         _buttonDie = buttonDie;
+        _button2Die = button2Die;
         _mainPlayerCardsUiParent = GameObject.Find("Cards MainPlayer").transform;
         _otherPlayerCardsUiParent = GameObject.Find("Cards OtherPlayers").transform;
         _deckCardsUiParent = GameObject.Find("Cards Deck").transform;
@@ -90,8 +100,11 @@ public class Game : MonoBehaviour
 
     public static void DisplayCards(int[] ids,string name)
     {
-        if(name != "None_Name")
+        if (name != "None_Name")
+        {
+            _button2Die.SetActive(name == PhotonNetwork.player.NickName);
             _buttonDie.SetActive(name == PhotonNetwork.player.NickName);
+        }
         foreach (GameObject go in ActualPlayerCards) { Destroy(go); }
         ActualPlayerCards.Clear();
         Dictionary<SOCard, int> dicoDisplayCards = new Dictionary<SOCard, int>();
@@ -122,23 +135,6 @@ public class Game : MonoBehaviour
             ActualPlayerCards.Add(card.gameObject);
             card.card = soCard;
             card.LoadImage();         
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            /*
-            Card card;
-            card = Instantiate(_cardPrefab, _otherPlayerCardsUiParent);
-            ActualPlayerCards.Add(card.gameObject);            
-            card.card = CardManager.GetCard(ids[j]);
-            card.LoadImage();
-            */
         }
     }
     public static void DisplayCardsLocal()
@@ -180,6 +176,13 @@ public class Game : MonoBehaviour
 
     public static void DisplayPiles()
     {
+        foreach (PhotonPlayer pla in players)
+        {
+            if (pla.IsMasterClient)
+            {
+                master = pla;
+            }
+        }
         foreach (GameObject go in DeckCards) { Destroy(go); }
         DeckCards.Clear();
         for (int j = 0; j < cards.Count; j++)
@@ -187,10 +190,7 @@ public class Game : MonoBehaviour
             Card card;
             card = Instantiate(_cardPrefab, _deckCardsUiParent);
 
-            if (Game.players[GameManager.instance.turn].IsMasterClient)
-            {
-                card.canBeBought = true;
-            }
+            card.canBeBought = true;
             
             DeckCards.Add(card.gameObject);
             card.card = cards[j];
@@ -251,7 +251,7 @@ public class Game : MonoBehaviour
         {
             GameManager.instance.turn = 0;
         }
-
+        
         PhotonNetwork.RPC(pv, "UpdateTextRPC", PhotonTargets.All, false, players[GameManager.instance.turn].NickName);
         //_popup.UpdateText(players[GameManager.instance.turn].NickName);
         Debug.Log(players[GameManager.instance.turn].NickName);
@@ -261,11 +261,14 @@ public class Game : MonoBehaviour
     {
         if (PhotonNetwork.player.IsMasterClient)
         {
+            PhotonNetwork.RPC(pv, "ShowDices", PhotonTargets.All, true,Die.face);
+            PhotonNetwork.RPC(pv, "DisplayPiles", PhotonTargets.All, true);
             TurnInitialization(GameManager.instance.turn);
             CardEffectOnOtherPlayers();
             PhotonNetwork.RPC(pv, "CardEffetOnPlayer", PhotonTargets.All, true, players[GameManager.instance.turn].NickName, Die.face);
             CheckEnd();
             NextTurn();
+            PhotonNetwork.RPC(pv, "DisplayGold", PhotonTargets.All, false, (int)players[GameManager.instance.turn].CustomProperties["Gold"]);
             PhotonNetwork.RPC(pv, "DisplayCards", PhotonTargets.All, false, (int[])players[GameManager.instance.turn].CustomProperties["Deck"], players[GameManager.instance.turn].NickName);
         }
     }
