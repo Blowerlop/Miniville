@@ -1,0 +1,1 @@
+On n'a pas eu le temps de finir entièrement notre UML donc voici une version qui montrerait comment serait approximativement l'UML final
