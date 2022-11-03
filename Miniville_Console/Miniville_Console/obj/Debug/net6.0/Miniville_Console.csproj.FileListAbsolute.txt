@@ -1,0 +1,15 @@
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\bin\Debug\net6.0\Miniville_Console.exe
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\bin\Debug\net6.0\Miniville_Console.deps.json
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\bin\Debug\net6.0\Miniville_Console.runtimeconfig.json
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\bin\Debug\net6.0\Miniville_Console.dll
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\bin\Debug\net6.0\Miniville_Console.pdb
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.csproj.AssemblyReference.cache
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.AssemblyInfoInputs.cache
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.AssemblyInfo.cs
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.csproj.CoreCompileInputs.cache
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.dll
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\refint\Miniville_Console.dll
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.pdb
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\Miniville_Console.genruntimeconfig.cache
+C:\Users\Girod Nathan\Desktop\ENJMIN\USRS46  Programmation C#  programmation objet\Miniville_Console\Miniville_Console\obj\Debug\net6.0\ref\Miniville_Console.dll
