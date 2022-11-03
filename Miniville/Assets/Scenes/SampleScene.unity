@@ -4859,9 +4859,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66226581c303b2e49a69105e9184f05e, type: 2}
   - {fileID: 11400000, guid: 398b7d3db7c0df54eb7019b7bf60b5ee, type: 2}
   - {fileID: 11400000, guid: df45335f92c39804c9e9b9f5b57d4991, type: 2}
+  diceUI: {fileID: 1946447099}
   goldMasterPlayerUI: {fileID: 866608214}
   goldOtherPlayersUI: {fileID: 1389581869}
   buttonDie: {fileID: 206890707}
+  button2Die: {fileID: 84181217}
 --- !u!4 &1734457181
 Transform:
   m_ObjectHideFlags: 0
@@ -5077,7 +5079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DIE FACE
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5104,7 +5106,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5171,7 +5173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1964602098
 RectTransform:
   m_ObjectHideFlags: 0

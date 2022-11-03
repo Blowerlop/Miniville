@@ -56,4 +56,10 @@ MonoBehaviour:
   - MasterRoll
   - End
   - Popup
+  - DisplayGold
+  - MasterDisplayGold
+  - DisplayPiles
+  - ShowDice
+  - ShowDices
+  - SetCanvas
   DisableAutoOpenWizard: 1

@@ -7,16 +7,16 @@ public class Player : MonoBehaviour
 {
     public string name;
     public List<SOCard> deck;
-
+    public static bool canBuyCard = true;
 
     public static bool TryBuyCard()
     {
         Card card = GameManager.instance.clickedCard;
         SOCard soCard = card.card;
         bool canBuy = PlayerNetwork.GetGold() >= soCard.cost;
-        canBuy = card.canBeBought;
+        //canBuy = card.canBeBought;
 
-        if (canBuy == false)
+        if (canBuy == false || !canBuyCard)
         {
             Debug.Log("You can't buy !");
         }

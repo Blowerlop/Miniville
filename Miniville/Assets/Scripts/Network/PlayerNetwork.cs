@@ -8,11 +8,14 @@ public class PlayerNetwork : MonoBehaviour
 {
     bool master;
     PhotonView pv;
+    [SerializeField]
+    GameObject Canvas;
     // Start is called before the first frame update
     void Start()
     {
         master = PhotonNetwork.isMasterClient;
         pv = GetComponent<PhotonView>();
+        Canvas = GameObject.Find("Game Canvas");
     }
 
     // Update is called once per frame
@@ -31,6 +34,7 @@ public class PlayerNetwork : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("Gold", gold);
         PhotonNetwork.player.SetCustomProperties(hash);
+        PhotonNetwork.RPC(Game.pv, "MasterDisplayGold", Game.master, false);
     }
 
 
@@ -39,6 +43,7 @@ public class PlayerNetwork : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("Gold", GetGold() + gold);
         PhotonNetwork.player.SetCustomProperties(hash);
+        PhotonNetwork.RPC(Game.pv, "MasterDisplayGold", Game.master, false);
     }
 
     public static void AddCard(int ID)
@@ -130,12 +135,26 @@ public class PlayerNetwork : MonoBehaviour
                         PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{currentPlayer.NickName} Get coinEffect --> Green color now {PlayerNetwork.GetGold()} gold");
                     }
                 }
+                else if(playerCard.color == SOCard.EColor.Violet && act == face && playerName == PhotonNetwork.player.NickName)
+                {
+                    foreach(PhotonPlayer pla in PhotonNetwork.playerList)
+                    {
+                        if(pla.NickName != PhotonNetwork.player.NickName)
+                        {
+                            PhotonNetwork.RPC(pv, "AddGoldRPC", pla, true, -playerCard.coinEffect);
+                            PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{pla.NickName} Loose coinEffect --> Purple color now {pla.CustomProperties["Gold"]} gold");
+                        }
+                    }
+                    AddGold(playerCard.coinEffect * (PhotonNetwork.playerList.Length - 1));
+                    PhotonNetwork.RPC(pv, "Popup", PhotonTargets.All, false, $"{currentPlayer.NickName} Get coinEffect --> Purple color now {PlayerNetwork.GetGold()} gold");
+                }
             }
         }
     }
     [PunRPC]
     public void UpdateTextRPC(string text)
     {
+        Player.canBuyCard = text == PhotonNetwork.player.NickName;
         Game._popup.UpdateText(text);
     }
 
@@ -154,5 +173,35 @@ public class PlayerNetwork : MonoBehaviour
     public void Popup(string data)
     {
         Game.popupManager.InvocationPop(data);
+    }
+
+    [PunRPC]
+    public void MasterDisplayGold()
+    {
+        PhotonNetwork.RPC(pv, "DisplayGold", PhotonTargets.All, false, (int)Game.players[GameManager.instance.turn].CustomProperties["Gold"]);
+    }
+
+    [PunRPC]
+    public void DisplayGold(int number)
+    {
+        Game._goldOtherPlayersUI.text = number.ToString();
+    }
+
+    [PunRPC]
+    public void DisplayPiles()
+    {
+        Game.DisplayPiles();
+    }
+
+    [PunRPC]
+    public void ShowDices(int score)
+    {
+        Game._diceUI.text = "Dés: " + score;
+    }
+
+    [PunRPC]
+    public void SetCanvas(bool act)
+    {
+        Canvas.SetActive(act);
     }
 }

@@ -23,6 +23,7 @@ public class RoomScript : MonoBehaviour
         hash.Add("Deck",new int[] {0,4 });
         if (PhotonNetwork.player.IsMasterClient)
         {
+            hash.Add("ActualTurn", "");
             hash.Add("WinnerGold", 0);
             hash.Add("Winner", "None_Name");
             foreach (SOCard card in CardManager._cards)

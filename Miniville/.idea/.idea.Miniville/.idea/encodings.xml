@@ -3,5 +3,6 @@
   <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Die.cs" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Game.cs" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Network/PlayerNetwork.cs" charset="windows-1252" />
   </component>
 </project>
