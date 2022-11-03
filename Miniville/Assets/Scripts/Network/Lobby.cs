@@ -35,7 +35,7 @@ public class Lobby : MonoBehaviour
     public void JoinOrCreateRoom()
     {
         RoomOptions MyRoomOption = new RoomOptions();
-        MyRoomOption.MaxPlayers = 3;
+        MyRoomOption.MaxPlayers = 20;
         MyRoomOption.IsVisible = true;
         PhotonNetwork.JoinOrCreateRoom("Main", MyRoomOption, TypedLobby.Default);
     }
