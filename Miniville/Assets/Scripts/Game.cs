@@ -306,19 +306,8 @@ public class Game : MonoBehaviour
 
     public void Update()
     {
+        goldMasterPlayerUI.text = PhotonNetwork.player.CustomProperties["Gold"].ToString();
         //Debug.text = "";
-        foreach(PhotonPlayer pla in PhotonNetwork.playerList)
-        {
-            if (pla.IsMasterClient)
-            {
-                goldMasterPlayerUI.text = pla.CustomProperties["Gold"].ToString();
-            }
-            else
-            {
-                goldOtherPlayersUI.text = pla.CustomProperties["Gold"].ToString();
-            }
-            //debug.text += $"\nname: {pla.NickName}, gold: {pla.CustomProperties["Gold"]}";
-        }
     }
     public void RollDice(int nbrDes)
     {
@@ -331,7 +320,7 @@ public class Game : MonoBehaviour
         {
             foreach (PhotonPlayer pla in players)
             {
-                if ((int)pla.CustomProperties["Gold"] >= 750 && (int)PhotonNetwork.player.CustomProperties["WinnerGold"] < (int)pla.CustomProperties["Gold"])
+                if ((int)pla.CustomProperties["Gold"] >= (int)PhotonNetwork.player.CustomProperties["Point"] && (int)PhotonNetwork.player.CustomProperties["WinnerGold"] < (int)pla.CustomProperties["Gold"])
                 {
                     Hashtable hash = new Hashtable();
                     hash.Add("Winner", pla.NickName);

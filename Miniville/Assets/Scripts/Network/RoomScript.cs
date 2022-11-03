@@ -1,4 +1,5 @@
 using ExitGames.Client.Photon;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,11 @@ public class RoomScript : MonoBehaviour
         hash.Add("Ready", false);
         hash.Add("Loaded", false);
         hash.Add("Forced", false);
-        hash.Add("Gold", 300);
-        hash.Add("Deck",new int[] {0,4 });
+        hash.Add("Gold", 3);
+        hash.Add("Deck",new int[] {0,2 });
         if (PhotonNetwork.player.IsMasterClient)
         {
+            hash.Add("Point", 75);
             hash.Add("ActualTurn", "");
             hash.Add("WinnerGold", 0);
             hash.Add("Winner", "None_Name");
@@ -109,6 +111,13 @@ public class RoomScript : MonoBehaviour
         {
             playersNames.text += "\n" + pla.NickName;
         }
+    }
+
+    public void SetVictoryPoint(string point)
+    {
+        Hashtable hash = new Hashtable();
+        hash.Add("Point", Convert.ToInt32(point));
+        PhotonNetwork.player.SetCustomProperties(hash);
     }
     
 }

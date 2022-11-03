@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         else
         {
             BuyCard(soCard);
+            canBuyCard = false;
         }
 
         return canBuy;
