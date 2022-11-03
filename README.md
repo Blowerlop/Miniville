@@ -13,5 +13,5 @@
  - Nathan : Menus, 
  - Guillaume : Multijoueur, Tours de jeu 
  - Teddy : Graphismes, Popups
- - Niloé : Dés
+ - Niloé : Dés, UML
  - DALL-E : image d'arrière-plan
