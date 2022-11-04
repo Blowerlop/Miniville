@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville_Console\\Miniville_Console\\Miniville_Console.csproj",
+      "projectUniqueName": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville-2\\Miniville_Console\\Miniville_Console\\Miniville_Console.csproj",
       "projectName": "Miniville_Console",
-      "projectPath": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville_Console\\Miniville_Console\\Miniville_Console.csproj",
+      "projectPath": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville-2\\Miniville_Console\\Miniville_Console\\Miniville_Console.csproj",
       "packagesPath": "C:\\Users\\Girod Nathan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville_Console\\Miniville_Console\\obj\\",
+      "outputPath": "C:\\Users\\Girod Nathan\\Desktop\\ENJMIN\\USRS46  Programmation C#  programmation objet\\Miniville-2\\Miniville_Console\\Miniville_Console\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

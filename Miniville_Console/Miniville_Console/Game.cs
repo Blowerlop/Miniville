@@ -262,7 +262,7 @@ public class Game
                 for (int j = 0; j < _piles.Length; j++)
                 {
                     Card card = _piles[j].GetCard();
-                    if (card.cost > mostExpensive.GetCard().cost)
+                    if (card.cost > mostExpensive.GetCard().cost && card.cost <= player.money)
                     {
                         mostExpensive = _piles[j];
                     }
